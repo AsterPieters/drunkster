@@ -10,6 +10,13 @@ import pygame
 pygame.init()
 print("Hello World")
 
+
+""""
+This part of the code is for the start screen.
+
+"""
+
+
 # Define resolution
 screen_width=1200
 screen_height=600
@@ -59,13 +66,14 @@ width = screen.get_width()
 height = screen.get_height()
 
 # Inializing start screen
-game_running = True
-while game_running:
+start_screen_running = True
+game_screen_running = False
+while start_screen_running:
 
     # Ends loop when quit window button is pressed
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            game_running = False
+            start_screen_running = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if enter_player_textbox_rect.collidepoint(event.pos):
@@ -101,7 +109,8 @@ while game_running:
               
             # If the mouse is clicked on the button the game is started
             if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-                print("Started Game")
+                
+                game_screen_running = True
         
             if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
                 pygame.draw.rect(screen,light_gray,[width/2,height/2,140,40])
@@ -140,6 +149,27 @@ while game_running:
     # Update the display
     pygame.display.update()
 
+"""
+This part of the code is for the game screen
+
+"""
+
+# Inializing game screen
+while game_screen_running:
+
+    # Ends loop when quit window button is pressed
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            game_screen_running = False
+
+    # Fills the background
+    screen.fill(white)
+
+    # Set the pygame window name
+    pygame.display.set_caption('Drunkster, get drunk or DIE!')
+
+    # Update the display
+    pygame.display.update()
 
 # Sets the FPS to 60
 clock = pygame.time.Clock()
@@ -147,4 +177,3 @@ clock.tick(60)
 
 # Quit screen
 pygame.quit()
-
