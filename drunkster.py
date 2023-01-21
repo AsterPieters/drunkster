@@ -101,13 +101,13 @@ while game_running:
               
             # If the mouse is clicked on the button the game is started
             if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-                pygame.quit()
+                print("Started Game")
         
-        if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-            pygame.draw.rect(screen,light_gray,[width/2,height/2,140,40])
+            if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
+                pygame.draw.rect(screen,light_gray,[width/2,height/2,140,40])
           
-        else:
-            pygame.draw.rect(screen,dark_gray,[width/2,height/2,140,40])
+            else:
+                pygame.draw.rect(screen,dark_gray,[width/2,height/2,140,40])
                 
 
     # Fills the background
@@ -139,6 +139,7 @@ while game_running:
 
     # Update the display
     pygame.display.update()
+
 
 # Sets the FPS to 60
 clock = pygame.time.Clock()
