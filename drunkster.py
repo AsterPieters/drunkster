@@ -3,6 +3,12 @@
 
 # Imports
 import pygame
+import random
+
+with open('/home/aster/Documents/drunkster/tasks.txt') as task:
+    task_list = task.read().splitlines()
+
+chosen_task = task_list[(random.randint(0,(len(task_list) -1)))]
 
 
 
@@ -109,12 +115,13 @@ while start_screen_running:
               
             # If the mouse is clicked on the button the game is started
             if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-                
+                print("Start button pushed")
                 game_screen_running = True
+                start_screen_running = False
+                pygame.display.update()
         
             if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
                 pygame.draw.rect(screen,light_gray,[width/2,height/2,140,40])
-          
             else:
                 pygame.draw.rect(screen,dark_gray,[width/2,height/2,140,40])
                 
@@ -123,7 +130,7 @@ while start_screen_running:
     screen.fill(white)
 
     # Set the pygame window name
-    pygame.display.set_caption('Drunkster, get drunk or DIE!')
+    pygame.display.set_caption('(SS) Drunkster, get drunk or DIE!')
 
     # Displays "Enter a player" text
     pygame.draw.rect(enter_player_text, white, textrect, 1)
@@ -154,6 +161,18 @@ This part of the code is for the game screen
 
 """
 
+
+# Gets the lines out of tasks.exe and puts them in a list
+with open('/home/aster/Documents/drunkster/tasks.txt') as task:
+    task_list = task.read().splitlines()
+
+# Randomly selects a task, checks the amount of tasks
+selected_task = task_list[(random.randint(0,(len(task_list) -1)))]
+
+# Define "enter a player" text & Rectangle
+task_text = font_1.render(selected_task, True, black)
+taskrect = task_text.get_rect()
+
 # Inializing game screen
 while game_screen_running:
 
@@ -165,8 +184,12 @@ while game_screen_running:
     # Fills the background
     screen.fill(white)
 
+    # Displays "Enter a player" text
+    pygame.draw.rect(task_text, white, taskrect, 1)
+    screen.blit(task_text, (20, 450))
+
     # Set the pygame window name
-    pygame.display.set_caption('Drunkster, get drunk or DIE!')
+    pygame.display.set_caption('(GS) Drunkster, get drunk or DIE!')
 
     # Update the display
     pygame.display.update()
