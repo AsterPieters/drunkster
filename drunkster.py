@@ -24,8 +24,8 @@ This part of the code is for the start screen.
 
 
 # Define resolution
-screen_width=1200
-screen_height=600
+screen_width=1535
+screen_height=715
 
 # Define colors
 white = (255, 255, 255)
@@ -156,20 +156,19 @@ while start_screen_running:
     # Update the display
     pygame.display.update()
 
+
 """
 This part of the code is for the game screen
 
 """
 
 
-# Gets the lines out of tasks.exe and puts them in a list
+# Gets the lines out of tasks.txt and puts them in a list
 with open('/home/aster/Documents/drunkster/tasks.txt') as task:
     task_list = task.read().splitlines()
 
-
-
 selected_task = 'Press enter to start the first round.'
-selected_player = 'Everyone'
+selected_player = ''
 
 # Inializing game screen
 while game_screen_running:
@@ -214,9 +213,9 @@ while game_screen_running:
     # Update the display
     pygame.display.update()
 
-# Sets the FPS to 60
+# Sets the FPS to 15
 clock = pygame.time.Clock()
-clock.tick(60)
+clock.tick(15)
 
 # Quit screen
 pygame.quit()
