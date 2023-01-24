@@ -5,13 +5,6 @@
 import pygame
 import random
 
-with open('/home/aster/Documents/drunkster/tasks.txt') as task:
-    task_list = task.read().splitlines()
-
-chosen_task = task_list[(random.randint(0,(len(task_list) -1)))]
-
-
-
 # Initializing pygame
 pygame.init()
 print("Hello World")
@@ -36,6 +29,7 @@ black = (0, 0, 0)
 
 # Define fonts
 font_1 = pygame.font.SysFont(None, 45)
+font_2 = pygame.font.SysFont(None, 75)
 
 # Define "enter a player" text & Rectangle
 enter_player_text = font_1.render('Enter a player:', True, black)
@@ -51,6 +45,7 @@ enter_player_textbox_input = ''
 
 # Define "start game" button
 start_game_text = font_1.render('Start Drunkster' , True , black)
+title_text = font_2.render('Drunkster, get drunk or DIE!' , True , black)
 
 # Add player to list function
 player_list = []
@@ -66,6 +61,7 @@ def add_player_func():
 
 # Define display
 screen = pygame.display.set_mode([screen_width, screen_height])
+start_screen_background = pygame.image.load("ui/images/start_screen_background.png")
 
 # Stores the width & height into variables
 width = screen.get_width()
@@ -127,14 +123,16 @@ while start_screen_running:
                 
 
     # Fills the background
-    screen.fill(white)
+    screen.blit(start_screen_background, (0, 0))
 
     # Set the pygame window name
     pygame.display.set_caption('(SS) Drunkster, get drunk or DIE!')
 
     # Displays "Enter a player" text
-    pygame.draw.rect(enter_player_text, white, textrect, 1)
     screen.blit(enter_player_text, (20, 450))
+
+    # Displays title
+    screen.blit(title_text, (30, 40))
 
     # Changes color for textbox
     if active:
@@ -164,7 +162,7 @@ This part of the code is for the game screen
 
 
 # Gets the lines out of tasks.txt and puts them in a list
-with open('/home/aster/Documents/drunkster/tasks.txt') as task:
+with open('/opt/drunkster/ui/tasks/single_user_tasks') as task:
     task_list = task.read().splitlines()
 
 selected_task = 'Press enter to start the first round.'
