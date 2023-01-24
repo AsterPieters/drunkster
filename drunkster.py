@@ -166,12 +166,9 @@ This part of the code is for the game screen
 with open('/home/aster/Documents/drunkster/tasks.txt') as task:
     task_list = task.read().splitlines()
 
-# Randomly selects a task, checks the amount of tasks
-selected_task = task_list[(random.randint(0,(len(task_list) -1)))]
 
-# Define "enter a player" text & Rectangle
-task_text = font_1.render(selected_task, True, black)
-taskrect = task_text.get_rect()
+
+selected_task = ''
 
 # Inializing game screen
 while game_screen_running:
@@ -181,10 +178,25 @@ while game_screen_running:
         if event.type == pygame.QUIT:
             game_screen_running = False
 
+        # Checks for textbox events
+        if event.type == pygame.KEYDOWN:
+
+            # Checks for enters
+            if event.key == pygame.K_RETURN:
+
+                print('New task button pressed')
+
+                # Randomly selects a task, checks the amount of tasks
+                selected_task = task_list[(random.randint(0,(len(task_list) -1)))]
+
+    # Define task
+    task_text = font_1.render(selected_task, True, black)
+    taskrect = task_text.get_rect()
+
     # Fills the background
     screen.fill(white)
 
-    # Displays "Enter a player" text
+    # Displays task
     pygame.draw.rect(task_text, white, taskrect, 1)
     screen.blit(task_text, (20, 450))
 
