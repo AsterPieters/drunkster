@@ -53,7 +53,7 @@ enter_player_textbox_input = ''
 start_game_text = font_1.render('Start Drunkster' , True , black)
 
 # Add player to list function
-players = []
+player_list = []
 
 def add_player_func():
 
@@ -61,8 +61,8 @@ def add_player_func():
         print("No name was given")
     
     else:
-        players.append(enter_player_textbox_input)
-        print(players)
+        player_list.append(enter_player_textbox_input)
+        print(player_list)
 
 # Define display
 screen = pygame.display.set_mode([screen_width, screen_height])
@@ -168,7 +168,8 @@ with open('/home/aster/Documents/drunkster/tasks.txt') as task:
 
 
 
-selected_task = ''
+selected_task = 'Press enter to start the first round.'
+selected_player = 'Everyone'
 
 # Inializing game screen
 while game_screen_running:
@@ -178,19 +179,26 @@ while game_screen_running:
         if event.type == pygame.QUIT:
             game_screen_running = False
 
-        # Checks for textbox events
+        # Checks for events
         if event.type == pygame.KEYDOWN:
 
-            # Checks for enters
+            # Checks for enters and 
             if event.key == pygame.K_RETURN:
 
                 print('New task button pressed')
 
-                # Randomly selects a task, checks the amount of tasks
+                # Randomly selects a task, checks the amount of tasks, and removes the task from the list
+                print('New task button pressed')
                 selected_task = task_list[(random.randint(0,(len(task_list) -1)))]
 
+                # Do we want to use the tasks once?
+                #task_list.remove(selected_task)
+
+                # Randomly selects a player, checks the amount of users.
+                selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
+
     # Define task
-    task_text = font_1.render(selected_task, True, black)
+    task_text = font_1.render((selected_player + selected_task), True, black)
     taskrect = task_text.get_rect()
 
     # Fills the background
