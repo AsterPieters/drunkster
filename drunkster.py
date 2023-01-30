@@ -47,9 +47,6 @@ enter_player_textbox_color = enter_player_textbox_color_passive
 active = False
 enter_player_textbox_input = ''
 
-# Define title
-title_text = font_2.render('Drunkster, get drunk or DIE!' , True , black)
-
 def add_player_func():
 
     if enter_player_textbox_input == '':
@@ -61,7 +58,7 @@ def add_player_func():
 
 # Define display
 screen = pygame.display.set_mode([screen_width, screen_height])
-start_screen_background = pygame.image.load("ui/images/start_screen_background.png")
+start_screen_background = pygame.image.load("ui/images/startscreen.png")
 
 # Stores the width & height into variables
 width = screen.get_width()
@@ -105,15 +102,10 @@ while start_screen_running:
                 add_player_func()
                 enter_player_textbox_input = ''
 
-                for p in player_list:
-                    player_name_text = font_1.render(p, True, dark_gray)
-
-                # Display players
-                screen.blit(player_name_text, (20, 660))
         
         # For events that occur upon clicking the mouse (left click)
         mouse = pygame.mouse.get_pos()
-        print(mouse)
+        #print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
                 if player_list == []:
@@ -126,7 +118,7 @@ while start_screen_running:
         
         # Changes color when hovering over start game button
         if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
-            start_game_text = font_1.render('Start Drunkster' , True , dark_gray)
+            start_game_text = font_1.render('Start Drunkster' , True , gray)
         else:
             start_game_text = font_1.render('Start Drunkster' , True , black)
 
@@ -134,13 +126,10 @@ while start_screen_running:
     screen.blit(start_screen_background, (0, 0))
 
     # Set the pygame window name
-    pygame.display.set_caption('(SS) Drunkster, get drunk or DIE!')
+    pygame.display.set_caption('(SS) Drunkster')
 
     # Displays "Enter a player" text
     screen.blit(enter_player_text, (20, 450))
-
-    # Displays title
-    screen.blit(title_text, (50, 50))
 
     # Changes color for textbox
     if active:
@@ -169,15 +158,56 @@ This part of the code is for the game screen
 """
 
 
-# Gets the lines out of tasks.txt and puts them in a list
+# Gets the lines out of the single_user_tasks file and puts them in a list
 with open('/opt/drunkster/ui/tasks/single_user_tasks') as task:
-    task_list = task.read().splitlines()
+    single_user_tasks_list = task.read().splitlines()
+
+# Gets the lines out of the single_user_tasks file and puts them in a list
+with open('/opt/drunkster/ui/tasks/virus_tasks') as task:
+    virus_tasks_list = task.read().splitlines()
 
 selected_task = 'Press enter to start the first round.'
 selected_player = ''
+previous_player = ''
+
+task_index = 0
+def task_func():
+
+    global task_index
+    task_index = task_index +1
+
+    if task_index == 5:
+        
+        # Randomly selects a task and checks the amount of tasks
+        start_screen_background = pygame.image.load("ui/images/virus.png")
+        selected_task = virus_tasks_list[(random.randint(0,(len(virus_tasks_list) -1)))]
+        task_index = 0
+
+        return start_screen_background, selected_task
+
+    else:
+        # Fills the background
+        # Randomly selects a task and checks the amount of tasks
+        start_screen_background = pygame.image.load("ui/images/task.png")
+        selected_task = single_user_tasks_list[(random.randint(0,(len(single_user_tasks_list) -1)))]
+
+        return start_screen_background, selected_task
+
+def select_player_func():
+    global previous_player
+
+    # Randomly selects a player and avoids choosing it twice in a row
+    selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
+    while selected_player == previous_player:
+        selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
+    previous_player = selected_player
+    return selected_player
 
 # Inializing game screen
 while game_screen_running:
+
+    # Fills the background
+    screen.blit(start_screen_background, (0, 0))
 
     # Ends loop when quit window button is pressed
     for event in pygame.event.get():
@@ -190,33 +220,16 @@ while game_screen_running:
             # Checks for enters and 
             if event.key == pygame.K_RETURN:
 
-                print('New task button pressed')
+                # Calls the randomizers
+                selected_player = select_player_func()
+                start_screen_background, selected_task = task_func()
 
-                # Randomly selects a task, checks the amount of tasks, and removes the task from the list
-                print('New task button pressed')
-                selected_task = task_list[(random.randint(0,(len(task_list) -1)))]
-
-                # Do we want to use the tasks once?
-                #task_list.remove(selected_task)
-
-                # Randomly selects a player, checks the amount of users.
-                selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
-
-    # Define task
-    task_text = font_1.render((selected_player + selected_task), True, black)
-    taskrect = task_text.get_rect()
-
-    # Fills the background
-    screen.fill(white)
-
-    # Displays task
-    pygame.draw.rect(task_text, white, taskrect, 1)
+    # Define and display task
+    task_text = font_1.render((str(selected_player) + str(selected_task)), True, black)
     screen.blit(task_text, (20, 450))
 
-    # Set the pygame window name
-    pygame.display.set_caption('(GS) Drunkster, get drunk or DIE!')
-
-    # Update the display
+    # Set the pygame window name and Update the display
+    pygame.display.set_caption('(GS) Drunkster')
     pygame.display.update()
 
 # Sets the FPS to 15
