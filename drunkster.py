@@ -26,6 +26,8 @@ light_gray = (205, 205, 205)
 gray = (100, 100, 100)
 dark_gray = (150, 150, 150)
 black = (0, 0, 0)
+red = (255, 0, 0)
+dark_red = (245, 0, 0)
 
 # Define fonts
 font_1 = pygame.font.SysFont(None, 50)
@@ -105,7 +107,7 @@ while start_screen_running:
         
         # For events that occur upon clicking the mouse (left click)
         mouse = pygame.mouse.get_pos()
-        #print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
+        print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
                 if player_list == []:
@@ -170,6 +172,15 @@ selected_task = 'Press enter to start the first round.'
 selected_player = ''
 previous_player = ''
 
+# Define Quit button
+quit_button_text = font_1.render('Quit game', True, black)
+quit_game_button_rect = pygame.Rect(1300, 650, 200, 36)
+quit_game_button_color_passive = pygame.Color(dark_gray)
+quit_game_button_color_active = pygame.Color(light_gray)
+quit_game_button_color = quit_game_button_color_passive
+
+
+
 task_index = 0
 def task_func():
 
@@ -223,6 +234,12 @@ while game_screen_running:
                 click = click + 1
                 print(click)
 
+    # Changes color when hovering over Quit game button
+    if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
+        pygame.draw.rect(screen, dark_red, quit_game_button_rect)
+    else:
+        pygame.draw.rect(screen, dark_gray, quit_game_button_rect)
+
         # Checks for events
         if event.type == pygame.KEYDOWN:
 
@@ -236,6 +253,9 @@ while game_screen_running:
     # Define and display task
     task_text = font_1.render((str(selected_player) + str(selected_task)), True, black)
     screen.blit(task_text, (500, 350))
+
+    # Display quit button
+    screen.blit(quit_button_text, (1317, 650))
 
     # Set the pygame window name and Update the display
     pygame.display.set_caption('(GS) Drunkster')
