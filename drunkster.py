@@ -32,7 +32,7 @@ font_1 = pygame.font.SysFont(None, 50)
 font_2 = pygame.font.SysFont(None, 100)
 
 # Add player to list function
-player_list = ['test']
+player_list = ['test', 'test2']
 
 # Define "enter a player" text
 enter_player_text = font_1.render('Enter a player:', True, black)
@@ -203,6 +203,8 @@ def select_player_func():
     previous_player = selected_player
     return selected_player
 
+click = 0
+
 # Inializing game screen
 while game_screen_running:
 
@@ -213,6 +215,13 @@ while game_screen_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_screen_running = False
+        
+        mouse = pygame.mouse.get_pos()
+        print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
+        if event.type == pygame.MOUSEBUTTONDOWN:
+              if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
+                click = click + 1
+                print(click)
 
         # Checks for events
         if event.type == pygame.KEYDOWN:
@@ -226,7 +235,7 @@ while game_screen_running:
 
     # Define and display task
     task_text = font_1.render((str(selected_player) + str(selected_task)), True, black)
-    screen.blit(task_text, (20, 450))
+    screen.blit(task_text, (500, 350))
 
     # Set the pygame window name and Update the display
     pygame.display.set_caption('(GS) Drunkster')
