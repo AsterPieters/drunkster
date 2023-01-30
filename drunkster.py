@@ -158,7 +158,7 @@ while start_screen_running:
 This part of the code is for the game screen
 
 """
-
+start_screen_background = pygame.image.load("ui/images/task.png")
 
 # Gets the lines out of the single_user_tasks file and puts them in a list
 with open('/opt/drunkster/ui/tasks/single_user_tasks') as task:
@@ -230,15 +230,10 @@ while game_screen_running:
         mouse = pygame.mouse.get_pos()
         print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
-              if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
-                click = click + 1
-                print(click)
+              if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
+                game_screen_running = False
 
-    # Changes color when hovering over Quit game button
-    if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
-        pygame.draw.rect(screen, dark_red, quit_game_button_rect)
-    else:
-        pygame.draw.rect(screen, dark_gray, quit_game_button_rect)
+
 
         # Checks for events
         if event.type == pygame.KEYDOWN:
@@ -249,6 +244,12 @@ while game_screen_running:
                 # Calls the randomizers
                 selected_player = select_player_func()
                 start_screen_background, selected_task = task_func()
+        
+    # Changes color when hovering over Quit game button
+    if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
+        pygame.draw.rect(screen, dark_red, quit_game_button_rect)
+    else:
+        pygame.draw.rect(screen, dark_gray, quit_game_button_rect)
 
     # Define and display task
     task_text = font_1.render((str(selected_player) + str(selected_task)), True, black)
