@@ -7,7 +7,6 @@ import random
 
 # Initializing pygame
 pygame.init()
-print("Hello World")
 
 
 """"
@@ -32,20 +31,20 @@ dark_red = (155, 0, 0)
 # Define fonts
 font_1 = pygame.font.SysFont(None, 50)
 font_2 = pygame.font.SysFont(None, 100)
+font_3 = pygame.font.SysFont(None, 200)
 
 # Add player to list function
 player_list = ['test', 'test2']
 
 # Define "enter a player" text
 enter_player_text = font_1.render('Enter a player:', True, black)
+title_top_text = font_3.render('Drunkster', True, black)
+title_bottom_text = font_2.render('Get drunk or DIE', True, black)
 
 
 
 # Define enter player textbox & Rectangle
-enter_player_textbox_rect = pygame.Rect(300, 450, 200, 32)
-enter_player_textbox_color_passive = pygame.Color(white)
-enter_player_textbox_color_active = pygame.Color(light_gray)
-enter_player_textbox_color = enter_player_textbox_color_passive
+enter_player_textbox_rect = pygame.Rect(280, 445, 200, 40)
 active = False
 enter_player_textbox_input = ''
 
@@ -60,7 +59,6 @@ def add_player_func():
 
 # Define display
 screen = pygame.display.set_mode([screen_width, screen_height])
-start_screen_background = pygame.image.load("ui/images/startscreen.png")
 
 # Stores the width & height into variables
 width = screen.get_width()
@@ -125,22 +123,18 @@ while start_screen_running:
             start_game_text = font_1.render('Start Drunkster' , True , black)
 
     # Fills the background
-    screen.blit(start_screen_background, (0, 0))
+    screen.fill(white)
 
     # Set the pygame window name
-    pygame.display.set_caption('(SS) Drunkster')
+    pygame.display.set_caption('Drunkster')
 
-    # Displays "Enter a player" text
+    # Displays text
     screen.blit(enter_player_text, (20, 450))
-
-    # Changes color for textbox
-    if active:
-        enter_player_textbox_color = enter_player_textbox_color_active
-    else:
-        enter_player_textbox_color = enter_player_textbox_color_passive
+    screen.blit(title_top_text, (490, 50))
+    screen.blit(title_bottom_text, (530, 170))
 
     # Displays "Add player" textbox
-    pygame.draw.rect(screen, enter_player_textbox_color, enter_player_textbox_rect)
+    pygame.draw.rect(screen, light_gray, enter_player_textbox_rect)
     text_surface = font_1.render(enter_player_textbox_input, True, (black))
     screen.blit(text_surface, (enter_player_textbox_rect.x+5, enter_player_textbox_rect.y+5))
     
@@ -158,6 +152,8 @@ while start_screen_running:
 This part of the code is for the game screen
 
 """
+
+
 start_screen_background = pygame.image.load("ui/images/task.png")
 
 # Gets the lines out of the single_user_tasks file and puts them in a list
@@ -180,8 +176,6 @@ quit_game_button_rect = pygame.Rect(1300, 650, 200, 36)
 quit_game_button_color_passive = pygame.Color(dark_gray)
 quit_game_button_color_active = pygame.Color(light_gray)
 quit_game_button_color = quit_game_button_color_passive
-
-
 
 def task_func():
 
@@ -234,8 +228,6 @@ while game_screen_running:
               if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
                 game_screen_running = False
 
-
-
         # Checks for events
         if event.type == pygame.KEYDOWN:
 
@@ -265,7 +257,7 @@ while game_screen_running:
     screen.blit(quit_button_text, (1317, 650))
 
     # Set the pygame window name and Update the display
-    pygame.display.set_caption('(GS) Drunkster')
+    pygame.display.set_caption('Drunkster')
     pygame.display.update()
 
 # Sets the FPS to 15
