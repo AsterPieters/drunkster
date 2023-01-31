@@ -18,6 +18,7 @@ This part of the code is for the start screen.
 # Define resolution
 screen_width=1535
 screen_height=715
+player_width = 500
 
 # Define colors
 white = (255, 255, 255)
@@ -32,16 +33,15 @@ dark_red = (155, 0, 0)
 font_1 = pygame.font.SysFont(None, 50)
 font_2 = pygame.font.SysFont(None, 100)
 font_3 = pygame.font.SysFont(None, 200)
+font_4 = pygame.font.SysFont(None, 25)
 
 # Add player to list function
-player_list = ['test', 'test2']
+player_list = []
 
 # Define "enter a player" text
 enter_player_text = font_1.render('Enter a player:', True, black)
 title_top_text = font_3.render('Drunkster', True, black)
 title_bottom_text = font_2.render('Get drunk or DIE', True, black)
-
-
 
 # Define enter player textbox & Rectangle
 enter_player_textbox_rect = pygame.Rect(280, 445, 200, 40)
@@ -53,6 +53,9 @@ def add_player_func():
     if enter_player_textbox_input == '':
         print("No name was given")
     
+    elif len(enter_player_textbox_input) > 8:
+        print("Max 8 charachters")
+
     else:
         player_list.append(enter_player_textbox_input)
         print(player_list)
@@ -143,6 +146,11 @@ while start_screen_running:
 
     # Displays "Start Drunkster" button
     screen.blit(start_game_text , (20, 400))
+
+    # Displays the players
+    for player in player_list:
+        player_list_text = font_1.render(player, True, black)
+        screen.blit(font_4.render(player, True, black), (20 + (60 * player_list.index(player)), 500 ))
 
     # Update the display
     pygame.display.update()
