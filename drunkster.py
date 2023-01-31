@@ -28,6 +28,13 @@ dark_gray = (150, 150, 150)
 black = (0, 0, 0)
 red = (255, 0, 0)
 dark_red = (155, 0, 0)
+light_blue = (188, 218, 255)
+blue = (143, 189, 255)
+
+# Task colors
+green = (133, 217, 37)
+turqoise = (37, 183, 217)
+purple = (158, 37, 217)
 
 # Define fonts
 font_1 = pygame.font.SysFont(None, 50)
@@ -47,6 +54,9 @@ title_bottom_text = font_2.render('Get drunk or DIE', True, black)
 enter_player_textbox_rect = pygame.Rect(280, 445, 200, 40)
 active = False
 enter_player_textbox_input = ''
+
+# Define added players text
+added_players_text = font_4.render('Players: ', True, black)
 
 def add_player_func():
 
@@ -126,7 +136,7 @@ while start_screen_running:
             start_game_text = font_1.render('Start Drunkster' , True , black)
 
     # Fills the background
-    screen.fill(white)
+    screen.fill(light_blue)
 
     # Set the pygame window name
     pygame.display.set_caption('Drunkster')
@@ -137,7 +147,7 @@ while start_screen_running:
     screen.blit(title_bottom_text, (530, 170))
 
     # Displays "Add player" textbox
-    pygame.draw.rect(screen, light_gray, enter_player_textbox_rect)
+    pygame.draw.rect(screen, blue, enter_player_textbox_rect)
     text_surface = font_1.render(enter_player_textbox_input, True, (black))
     screen.blit(text_surface, (enter_player_textbox_rect.x+5, enter_player_textbox_rect.y+5))
     
@@ -147,10 +157,14 @@ while start_screen_running:
     # Displays "Start Drunkster" button
     screen.blit(start_game_text , (20, 400))
 
+    # Display added players text & rectangle
+    pygame.draw.rect(screen, blue, pygame.Rect(1190, 390, 300, 280))
+    screen.blit(added_players_text, (1200, 400))
+    
     # Displays the players
     for player in player_list:
         player_list_text = font_1.render(player, True, black)
-        screen.blit(font_4.render(player, True, black), (20 + (60 * player_list.index(player)), 500 ))
+        screen.blit(font_4.render(player, True, black), (1280 , 400 + (17 * player_list.index(player))))
 
     # Update the display
     pygame.display.update()
@@ -162,7 +176,7 @@ This part of the code is for the game screen
 """
 
 
-start_screen_background = pygame.image.load("ui/images/task.png")
+start_screen_background = screen.fill(turqoise)
 
 # Gets the lines out of the single_user_tasks file and puts them in a list
 with open('/opt/drunkster/ui/tasks/single_user_tasks') as task:
@@ -181,9 +195,7 @@ task_index = 0
 # Define Quit button
 quit_button_text = font_1.render('Quit game', True, black)
 quit_game_button_rect = pygame.Rect(1300, 650, 200, 36)
-quit_game_button_color_passive = pygame.Color(dark_gray)
-quit_game_button_color_active = pygame.Color(light_gray)
-quit_game_button_color = quit_game_button_color_passive
+
 
 def task_func():
 
@@ -193,7 +205,7 @@ def task_func():
     if task_index == 5:
         
         # Randomly selects a task and checks the amount of tasks
-        start_screen_background = pygame.image.load("ui/images/virus.png")
+        start_screen_background = screen.fill(green)
         selected_task = virus_tasks_list[(random.randint(0,(len(virus_tasks_list) -1)))]
         task_index = 0
 
@@ -202,7 +214,7 @@ def task_func():
     else:
         # Fills the background
         # Randomly selects a task and checks the amount of tasks
-        start_screen_background = pygame.image.load("ui/images/task.png")
+        start_screen_background = screen.fill(turqoise)
         selected_task = single_user_tasks_list[(random.randint(0,(len(single_user_tasks_list) -1)))]
 
         return start_screen_background, selected_task
@@ -223,7 +235,7 @@ click = 0
 while game_screen_running:
 
     # Fills the background
-    screen.blit(start_screen_background, (0, 0))
+    start_screen_background
 
     # Ends loop when quit window button is pressed
     for event in pygame.event.get():
@@ -270,7 +282,7 @@ while game_screen_running:
 
 # Sets the FPS to 15
 clock = pygame.time.Clock()
-clock.tick(15)
+clock.tick(120)
 
 # Quit screen
 pygame.quit()
