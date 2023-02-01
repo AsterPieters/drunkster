@@ -41,7 +41,7 @@ font_1 = pygame.font.SysFont(None, 50)
 font_2 = pygame.font.SysFont(None, 100)
 font_3 = pygame.font.SysFont(None, 200)
 font_4 = pygame.font.SysFont(None, 25)
-font_5 = pygame.font.SysFont(None, 65)
+font_5 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
 
 # Add player to list function
 player_list = []
@@ -241,7 +241,7 @@ click = 0
 while game_screen_running:
 
     # Fills the background
-    start_screen_background
+    #start_screen_background
 
     # Ends loop when quit window button is pressed
     for event in pygame.event.get():
@@ -295,7 +295,7 @@ while game_screen_running:
 
 # Sets the FPS to 15
 clock = pygame.time.Clock()
-clock.tick(120)
+clock.tick(15)
 
 # Quit screen
 pygame.quit()
