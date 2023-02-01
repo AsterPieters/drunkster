@@ -41,6 +41,7 @@ font_1 = pygame.font.SysFont(None, 50)
 font_2 = pygame.font.SysFont(None, 100)
 font_3 = pygame.font.SysFont(None, 200)
 font_4 = pygame.font.SysFont(None, 25)
+font_5 = pygame.font.SysFont(None, 65)
 
 # Add player to list function
 player_list = []
@@ -191,6 +192,7 @@ selected_player = ''
 previous_player = ''
 task_count = 0
 task_index = 0
+punishment = ''
 
 # Define Quit button
 quit_button_text = font_1.render('Quit game', True, black)
@@ -202,6 +204,8 @@ def task_func():
     global task_index
     task_index = task_index +1
 
+    punishment = random.randint(1, 8)
+
     if task_index == 5:
         
         # Randomly selects a task and checks the amount of tasks
@@ -209,7 +213,7 @@ def task_func():
         selected_task = virus_tasks_list[(random.randint(0,(len(virus_tasks_list) -1)))]
         task_index = 0
 
-        return start_screen_background, selected_task
+        return start_screen_background, selected_task, punishment
 
     else:
         # Fills the background
@@ -217,7 +221,9 @@ def task_func():
         start_screen_background = screen.fill(turqoise)
         selected_task = single_user_tasks_list[(random.randint(0,(len(single_user_tasks_list) -1)))]
 
-        return start_screen_background, selected_task
+        return start_screen_background, selected_task, punishment
+
+
 
 def select_player_func():
     global previous_player
@@ -256,7 +262,7 @@ while game_screen_running:
 
                 # Calls the randomizers
                 selected_player = select_player_func()
-                start_screen_background, selected_task = task_func()
+                start_screen_background, selected_task, punishment = task_func()
                 task_count = task_count + 1
         
     # Changes color when hovering over Quit game button
@@ -266,8 +272,15 @@ while game_screen_running:
         pygame.draw.rect(screen, red, quit_game_button_rect)
 
     # Define and display task
-    task_text = font_1.render((str(selected_player) + str(selected_task)), True, black)
-    screen.blit(task_text, (500, 350))
+    task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
+    screen.blit(task_text, (250, 350))
+
+    # Define and display or
+    screen.blit(font_5.render('of', True, black), (300, 420))
+
+    #Define and display punishment
+    punishment_text = font_5.render('Drink ' + str(punishment) + ' shots', True, black)
+    screen.blit(punishment_text, (250, 490))
 
     # Define task count
     task_count_text = font_1.render(('Task count: ' + str(task_count) ), True, black)
