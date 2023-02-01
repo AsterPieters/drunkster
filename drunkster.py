@@ -264,27 +264,27 @@ while game_screen_running:
                 selected_player = select_player_func()
                 start_screen_background, selected_task, punishment = task_func()
                 task_count = task_count + 1
-        
+
+                # Define and display task
+                task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
+                screen.blit(task_text, (250, 350))
+
+                # Define and display or
+                screen.blit(font_5.render('of', True, black), (300, 420))
+
+                # Define and display punishment
+                punishment_text = font_5.render('Drink ' + str(punishment) + ' shots', True, black)
+                screen.blit(punishment_text, (250, 490))
+
+                # Define task count
+                task_count_text = font_1.render(('Task count: ' + str(task_count) ), True, black)
+                screen.blit(task_count_text, (1200, 20))
+
     # Changes color when hovering over Quit game button
     if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
         pygame.draw.rect(screen, dark_red, quit_game_button_rect)
     else:
         pygame.draw.rect(screen, red, quit_game_button_rect)
-
-    # Define and display task
-    task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
-    screen.blit(task_text, (250, 350))
-
-    # Define and display or
-    screen.blit(font_5.render('of', True, black), (300, 420))
-
-    #Define and display punishment
-    punishment_text = font_5.render('Drink ' + str(punishment) + ' shots', True, black)
-    screen.blit(punishment_text, (250, 490))
-
-    # Define task count
-    task_count_text = font_1.render(('Task count: ' + str(task_count) ), True, black)
-    screen.blit(task_count_text, (1200, 20))
 
     # Display quit button
     screen.blit(quit_button_text, (1317, 650))
