@@ -71,6 +71,8 @@ def add_player_func():
     elif len(enter_player_textbox_input) > 8:
         error_code = "Please use 8 or less charachters!"
         return error_code
+    elif enter_player_textbox_input in player_list:
+        player_list.remove(enter_player_textbox_input)
     else:
         player_list.append(enter_player_textbox_input)
 
@@ -129,10 +131,9 @@ while start_screen_running:
         print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 20 <= mouse[0] <= 380 and 470 <= mouse[1] <= 510:
-                if player_list == []:
-                    print('player list is empty')
+                if len(player_list) < 2:
+                    error_code = 'Please add at least 2 players!'
                 else:
-                    print("Start button pushed")
                     game_screen_running = True
                     start_screen_running = False
                     pygame.display.update()
@@ -151,7 +152,13 @@ while start_screen_running:
     left_plank = pygame.image.load('ui/images/left_plank.png')
     screen.blit(left_plank, (5, 437))
 
-    # Display left plank
+    for player in player_list:
+        if player == 'Marc' or player == 'marc':
+        # Display Marc
+            marc = pygame.image.load('ui/images/marc.png')
+            screen.blit(marc, (1200, 120))
+
+    # Display right plank
     left_plank = pygame.image.load('ui/images/right_plank.png')
     screen.blit(left_plank, (1169, 344))
 
@@ -251,16 +258,13 @@ click = 0
 # Inializing game screen
 while game_screen_running:
 
-    # Fills the background
-    #start_screen_background
-
     # Ends loop when quit window button is pressed
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_screen_running = False
         
-        mouse = pygame.mouse.get_pos()
-        #print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
+        #mouse = pygame.mouse.get_pos()
+        print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
                 game_screen_running = False
