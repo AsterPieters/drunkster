@@ -198,11 +198,11 @@ This part of the code is for the game screen
 start_screen_background = screen.fill(turqoise)
 
 # Gets the lines out of the single_user_tasks file and puts them in a list
-with open('/opt/drunkster/ui/tasks/single_user_tasks') as task:
+with open('ui/tasks/single_user_tasks') as task:
     single_user_tasks_list = task.read().splitlines()
 
 # Gets the lines out of the single_user_tasks file and puts them in a list
-with open('/opt/drunkster/ui/tasks/virus_tasks') as task:
+with open('ui/tasks/virus_tasks') as task:
     virus_tasks_list = task.read().splitlines()
 
 selected_task = 'Press enter to start the first round.'
@@ -211,6 +211,7 @@ previous_player = ''
 task_count = 0
 task_index = 0
 punishment = ''
+click = 0
 
 # Define Quit button
 quit_button_text = font_1.render('Quit game', True, black)
@@ -222,26 +223,24 @@ def task_func():
     global task_index
     task_index = task_index +1
 
-    punishment = random.randint(1, 8)
-
-    if task_index == 5:
-        
+    if task_index == 3 and task_index == random.randint(1, 3):
+            
         # Randomly selects a task and checks the amount of tasks
+        punishment = random.randint(1, 3)
         start_screen_background = screen.fill(green)
         selected_task = virus_tasks_list[(random.randint(0,(len(virus_tasks_list) -1)))]
         task_index = 0
-
         return start_screen_background, selected_task, punishment
 
     else:
         # Fills the background
         # Randomly selects a task and checks the amount of tasks
+        if task_index == 3:
+            task_index = 0
+        punishment = random.randint(1, 8)
         start_screen_background = screen.fill(turqoise)
         selected_task = single_user_tasks_list[(random.randint(0,(len(single_user_tasks_list) -1)))]
-
         return start_screen_background, selected_task, punishment
-
-
 
 def select_player_func():
     global previous_player
@@ -252,8 +251,6 @@ def select_player_func():
         selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
     previous_player = selected_player
     return selected_player
-
-click = 0
 
 # Inializing game screen
 while game_screen_running:
@@ -282,18 +279,18 @@ while game_screen_running:
 
                 # Define and display task
                 task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
-                screen.blit(task_text, (250, 350))
+                screen.blit(task_text, (200, 250))
 
                 # Define and display or
-                screen.blit(font_5.render('of', True, black), (300, 420))
+                screen.blit(font_5.render('of', True, black), (350, 330))
 
                 # Define and display punishment
-                punishment_text = font_5.render('Drink ' + str(punishment) + ' shots', True, black)
-                screen.blit(punishment_text, (250, 490))
+                punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
+                screen.blit(punishment_text, (200, 410))
 
                 # Define task count
-                task_count_text = font_1.render(('Task count: ' + str(task_count) ), True, black)
-                screen.blit(task_count_text, (1200, 20))
+                task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
+                screen.blit(task_count_text, (1300, 20))
 
     # Changes color when hovering over Quit game button
     if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
