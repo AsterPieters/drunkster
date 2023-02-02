@@ -143,34 +143,36 @@ while start_screen_running:
     bg = pygame.image.load('ui/images/bar.png')
     screen.blit(bg, (0,0))
 
+    # Display left plank
+    left_plank = pygame.image.load('ui/images/left_plank.png')
+    screen.blit(left_plank, (5, 437))
+
+    # Display left plank
+    left_plank = pygame.image.load('ui/images/right_plank.png')
+    screen.blit(left_plank, (1169, 344))
 
     # Set the pygame window name
     pygame.display.set_caption('Drunkster')
 
     # Displays text
     screen.blit(enter_player_text, (20, 520))
-    screen.blit(title_top_text, (440, 35))
-    screen.blit(title_bottom_text, (480, 170))
+    screen.blit(title_top_text, (440, 0))
+    screen.blit(title_bottom_text, (480, 135))
 
     # Displays "Add player" textbox
-    pygame.draw.rect(screen, dark_brown, enter_player_textbox_rect)
     text_surface = font_1.render(enter_player_textbox_input, True, (black))
-    screen.blit(text_surface, (enter_player_textbox_rect.x+5, enter_player_textbox_rect.y+5))
-    
-    # Set width of textfield so that text cannot get outside of user's text input
-    enter_player_textbox_rect.w = max(150, text_surface.get_width()+10)
+    screen.blit(text_surface, (380, 520))
 
     # Displays "Start Drunkster" button
     screen.blit(start_game_text , (20, 460))
 
     # Display added players text & rectangle
-    pygame.draw.rect(screen, dark_brown, pygame.Rect(1190, 390, 300, 280))
     screen.blit(added_players_text, (1200, 400))
     
     # Displays the players
     for player in player_list:
         player_list_text = font_1.render(player, True, black)
-        screen.blit(font_4.render(player, True, black), (1280 , 400 + (17 * player_list.index(player))))
+        screen.blit(font_4.render(player, True, black), (1300 , 400 + (25 * player_list.index(player))))
 
     # Update the display
     pygame.display.update()
