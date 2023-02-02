@@ -23,13 +23,14 @@ player_width = 500
 # Define colors
 white = (255, 255, 255)
 light_gray = (205, 205, 205)
-gray = (100, 100, 100)
+gray = (50, 50, 50)
 dark_gray = (150, 150, 150)
 black = (0, 0, 0)
 red = (255, 0, 0)
 dark_red = (155, 0, 0)
 light_blue = (188, 218, 255)
 blue = (143, 189, 255)
+dark_brown = (104, 59, 1)
 
 # Task colors
 green = (133, 217, 37)
@@ -37,10 +38,10 @@ turqoise = (37, 183, 217)
 purple = (158, 37, 217)
 
 # Define fonts
-font_1 = pygame.font.SysFont(None, 50)
-font_2 = pygame.font.SysFont(None, 100)
-font_3 = pygame.font.SysFont(None, 200)
-font_4 = pygame.font.SysFont(None, 25)
+font_1 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
+font_2 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 80)
+font_3 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 150)
+font_4 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 25)
 font_5 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
 
 # Add player to list function
@@ -52,7 +53,7 @@ title_top_text = font_3.render('Drunkster', True, black)
 title_bottom_text = font_2.render('Get drunk or DIE', True, black)
 
 # Define enter player textbox & Rectangle
-enter_player_textbox_rect = pygame.Rect(280, 445, 200, 40)
+enter_player_textbox_rect = pygame.Rect(365, 516, 200, 60)
 active = False
 enter_player_textbox_input = ''
 
@@ -82,6 +83,8 @@ height = screen.get_height()
 start_screen_running = True
 game_screen_running = False
 while start_screen_running:
+
+
 
     # Ends loop when quit window button is pressed
     for event in pygame.event.get():
@@ -121,7 +124,7 @@ while start_screen_running:
         mouse = pygame.mouse.get_pos()
         print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
-              if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
+              if 20 <= mouse[0] <= 380 and 470 <= mouse[1] <= 510:
                 if player_list == []:
                     print('player list is empty')
                 else:
@@ -131,24 +134,26 @@ while start_screen_running:
                     pygame.display.update()
         
         # Changes color when hovering over start game button
-        if 20 <= mouse[0] <= 270 and 400 <= mouse[1] <= 430:
+        if 20 <= mouse[0] <= 380 and 470 <= mouse[1] <= 510:
             start_game_text = font_1.render('Start Drunkster' , True , gray)
         else:
             start_game_text = font_1.render('Start Drunkster' , True , black)
 
     # Fills the background
-    screen.fill(light_blue)
+    bg = pygame.image.load('ui/images/bar.png')
+    screen.blit(bg, (0,0))
+
 
     # Set the pygame window name
     pygame.display.set_caption('Drunkster')
 
     # Displays text
-    screen.blit(enter_player_text, (20, 450))
-    screen.blit(title_top_text, (490, 50))
-    screen.blit(title_bottom_text, (530, 170))
+    screen.blit(enter_player_text, (20, 520))
+    screen.blit(title_top_text, (440, 35))
+    screen.blit(title_bottom_text, (480, 170))
 
     # Displays "Add player" textbox
-    pygame.draw.rect(screen, blue, enter_player_textbox_rect)
+    pygame.draw.rect(screen, dark_brown, enter_player_textbox_rect)
     text_surface = font_1.render(enter_player_textbox_input, True, (black))
     screen.blit(text_surface, (enter_player_textbox_rect.x+5, enter_player_textbox_rect.y+5))
     
@@ -156,10 +161,10 @@ while start_screen_running:
     enter_player_textbox_rect.w = max(150, text_surface.get_width()+10)
 
     # Displays "Start Drunkster" button
-    screen.blit(start_game_text , (20, 400))
+    screen.blit(start_game_text , (20, 460))
 
     # Display added players text & rectangle
-    pygame.draw.rect(screen, blue, pygame.Rect(1190, 390, 300, 280))
+    pygame.draw.rect(screen, dark_brown, pygame.Rect(1190, 390, 300, 280))
     screen.blit(added_players_text, (1200, 400))
     
     # Displays the players
