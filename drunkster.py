@@ -38,8 +38,8 @@ purple = (158, 37, 217)
 
 # Define fonts
 font_1 = pygame.font.SysFont(None, 50)
-font_2 = pygame.font.SysFont(None, 100)
-font_3 = pygame.font.SysFont(None, 200)
+font_2 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 80)
+font_3 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 150)
 font_4 = pygame.font.SysFont(None, 25)
 font_5 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
 
@@ -144,8 +144,8 @@ while start_screen_running:
 
     # Displays text
     screen.blit(enter_player_text, (20, 450))
-    screen.blit(title_top_text, (490, 50))
-    screen.blit(title_bottom_text, (530, 170))
+    screen.blit(title_top_text, (440, 35))
+    screen.blit(title_bottom_text, (480, 170))
 
     # Displays "Add player" textbox
     pygame.draw.rect(screen, blue, enter_player_textbox_rect)
