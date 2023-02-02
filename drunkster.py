@@ -143,14 +143,21 @@ while start_screen_running:
     bg = pygame.image.load('ui/images/bar.png')
     screen.blit(bg, (0,0))
 
+    # Display left plank
+    left_plank = pygame.image.load('ui/images/left_plank.png')
+    screen.blit(left_plank, (5, 437))
+
+    # Display left plank
+    left_plank = pygame.image.load('ui/images/right_plank.png')
+    screen.blit(left_plank, (1169, 344))
 
     # Set the pygame window name
     pygame.display.set_caption('Drunkster')
 
     # Displays text
     screen.blit(enter_player_text, (20, 520))
-    screen.blit(title_top_text, (440, 35))
-    screen.blit(title_bottom_text, (480, 170))
+    screen.blit(title_top_text, (440, 0))
+    screen.blit(title_bottom_text, (480, 135))
 
     # Displays "Add player" textbox
     text_surface = font_1.render(enter_player_textbox_input, True, (black))
