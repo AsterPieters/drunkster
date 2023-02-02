@@ -4,6 +4,7 @@
 # Imports
 import pygame
 import random
+import time
 
 # Initializing pygame
 pygame.init()
@@ -56,21 +57,22 @@ title_bottom_text = font_2.render('Get drunk or DIE', True, black)
 enter_player_textbox_rect = pygame.Rect(365, 516, 200, 60)
 active = False
 enter_player_textbox_input = ''
+error_code = ''
 
 # Define added players text
 added_players_text = font_4.render('Players: ', True, black)
 
 def add_player_func():
 
+    error_code = ''
     if enter_player_textbox_input == '':
-        print("No name was given")
-    
+        error_code = "Please enter a name!"
+        return error_code
     elif len(enter_player_textbox_input) > 8:
-        print("Max 8 charachters")
-
+        error_code = "Please use 8 or less charachters!"
+        return error_code
     else:
         player_list.append(enter_player_textbox_input)
-        print(player_list)
 
 # Define display
 screen = pygame.display.set_mode([screen_width, screen_height])
@@ -84,7 +86,9 @@ start_screen_running = True
 game_screen_running = False
 while start_screen_running:
 
-
+    # Fills the background
+    bg = pygame.image.load('ui/images/bar.png')
+    screen.blit(bg, (0,0))
 
     # Ends loop when quit window button is pressed
     for event in pygame.event.get():
@@ -116,7 +120,7 @@ while start_screen_running:
             # Checks for enters
             if event.key == pygame.K_RETURN:
                 enter_player_textbox_input = enter_player_textbox_input[:-1]
-                add_player_func()
+                error_code = add_player_func()
                 enter_player_textbox_input = ''
 
         
@@ -139,9 +143,9 @@ while start_screen_running:
         else:
             start_game_text = font_1.render('Start Drunkster' , True , black)
 
-    # Fills the background
-    bg = pygame.image.load('ui/images/bar.png')
-    screen.blit(bg, (0,0))
+    # Display error
+    error_text = font_1.render(error_code, True, red)
+    screen.blit(error_text, (400, 640))
 
     # Display left plank
     left_plank = pygame.image.load('ui/images/left_plank.png')
@@ -256,7 +260,7 @@ while game_screen_running:
             game_screen_running = False
         
         mouse = pygame.mouse.get_pos()
-        print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
+        #print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
                 game_screen_running = False
