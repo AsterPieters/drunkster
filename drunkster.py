@@ -32,6 +32,7 @@ dark_red = (155, 0, 0)
 light_blue = (188, 218, 255)
 blue = (143, 189, 255)
 dark_brown = (104, 59, 1)
+yellow = (225, 225, 31)
 
 # Task colors
 green = (133, 217, 37)
@@ -128,7 +129,7 @@ while start_screen_running:
         
         # For events that occur upon clicking the mouse (left click)
         mouse = pygame.mouse.get_pos()
-        print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
+        #print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 20 <= mouse[0] <= 380 and 470 <= mouse[1] <= 510:
                 if len(player_list) < 2:
@@ -201,9 +202,21 @@ start_screen_background = screen.fill(turqoise)
 with open('ui/tasks/single_user_tasks') as task:
     single_user_tasks_list = task.read().splitlines()
 
-# Gets the lines out of the single_user_tasks file and puts them in a list
+# Gets the lines out of the virus file and puts them in a list
 with open('ui/tasks/virus_tasks') as task:
     virus_tasks_list = task.read().splitlines()
+
+# Gets the lines out of the luck file and puts them in a list
+with open('ui/tasks/luck_tasks') as task:
+    luck_tasks_list = task.read().splitlines()
+
+# Gets the lines out of the punish file and puts them in a list
+with open('ui/tasks/punish_tasks') as task:
+    punish_tasks_list = task.read().splitlines()
+
+# Gets the lines out of the single_user_tasks file and puts them in a list
+with open('ui/tasks/quiz_tasks') as task:
+    quiz_tasks_list = task.read().splitlines()
 
 selected_task = 'Press enter to start the first round.'
 selected_player = ''
@@ -220,27 +233,52 @@ quit_game_button_rect = pygame.Rect(1300, 650, 200, 36)
 
 def task_func():
 
-    global task_index
-    task_index = task_index +1
+    task_type = random.randint(1, 10)
+    print(task_type)
 
-    if task_index == 3 and task_index == random.randint(1, 3):
-            
-        # Randomly selects a task and checks the amount of tasks
+    # Virus
+    if task_type == 1:
+
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(green)
         selected_task = virus_tasks_list[(random.randint(0,(len(virus_tasks_list) -1)))]
-        task_index = 0
-        return start_screen_background, selected_task, punishment
+        punishment_display = True
+        return start_screen_background, selected_task, punishment, punishment_display
 
+    # Luck
+    elif task_type == 2:
+
+        punishment = random.randint(1, 3)
+        start_screen_background = screen.fill(yellow)
+        selected_task = luck_tasks_list[(random.randint(0,(len(luck_tasks_list) -1)))]
+        punishment_display = False
+        return start_screen_background, selected_task, punishment, punishment_display
+
+    # Punish
+    elif task_type == 3:
+        punishment = random.randint(1, 3)
+        start_screen_background = screen.fill(red)
+        selected_task = punish_tasks_list[(random.randint(0,(len(punish_tasks_list) -1)))]
+        punishment_display = False
+        return start_screen_background, selected_task, punishment, punishment_display
+    
+    # Quiz
+    elif task_type == 4:
+        punishment = random.randint(1, 3)
+        start_screen_background = screen.fill(blue)
+        selected_task = quiz_tasks_list[(random.randint(0,(len(quiz_tasks_list) -1)))]
+        punishment_display = True
+        return start_screen_background, selected_task, punishment, punishment_display
+    # Task
     else:
+
         # Fills the background
         # Randomly selects a task and checks the amount of tasks
-        if task_index == 3:
-            task_index = 0
         punishment = random.randint(1, 8)
         start_screen_background = screen.fill(turqoise)
         selected_task = single_user_tasks_list[(random.randint(0,(len(single_user_tasks_list) -1)))]
-        return start_screen_background, selected_task, punishment
+        punishment_display = True
+        return start_screen_background, selected_task, punishment, punishment_display
 
 def select_player_func():
     global previous_player
@@ -261,7 +299,7 @@ while game_screen_running:
             game_screen_running = False
         
         #mouse = pygame.mouse.get_pos()
-        print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
+        #print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
                 game_screen_running = False
@@ -274,19 +312,23 @@ while game_screen_running:
 
                 # Calls the randomizers
                 selected_player = select_player_func()
-                start_screen_background, selected_task, punishment = task_func()
+                start_screen_background, selected_task, punishment, punishment_display = task_func()
                 task_count = task_count + 1
 
                 # Define and display task
                 task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
                 screen.blit(task_text, (20, 250))
 
-                # Define and display or
-                screen.blit(font_5.render('of', True, black), (150, 330))
 
-                # Define and display punishment
-                punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
-                screen.blit(punishment_text, (20, 410))
+
+                if punishment_display == True:
+
+                    # Define and display or
+                    screen.blit(font_5.render('of', True, black), (150, 330))
+
+                    # Define and display punishment
+                    punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
+                    screen.blit(punishment_text, (20, 410))
 
                 # Define task count
                 task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
