@@ -197,26 +197,46 @@ This part of the code is for the game screen
 
 
 start_screen_background = screen.fill(turqoise)
+def single_user_task_func():
+    # Gets the lines out of the single_user_tasks file and puts them in a list
+    with open('ui/tasks/single_user_tasks') as task:
+        single_user_tasks_list = task.read().splitlines()
+        random.shuffle(single_user_tasks_list)
+        return single_user_tasks_list
 
-# Gets the lines out of the single_user_tasks file and puts them in a list
-with open('ui/tasks/single_user_tasks') as task:
-    single_user_tasks_list = task.read().splitlines()
-
-# Gets the lines out of the virus file and puts them in a list
-with open('ui/tasks/virus_tasks') as task:
-    virus_tasks_list = task.read().splitlines()
-
-# Gets the lines out of the luck file and puts them in a list
-with open('ui/tasks/luck_tasks') as task:
-    luck_tasks_list = task.read().splitlines()
-
-# Gets the lines out of the punish file and puts them in a list
-with open('ui/tasks/punish_tasks') as task:
-    punish_tasks_list = task.read().splitlines()
-
-# Gets the lines out of the single_user_tasks file and puts them in a list
-with open('ui/tasks/quiz_tasks') as task:
-    quiz_tasks_list = task.read().splitlines()
+def virus_tasks_func():
+    # Gets the lines out of the virus file and puts them in a list
+    with open('ui/tasks/virus_tasks') as task:
+        virus_tasks_list = task.read().splitlines()
+        random.shuffle(virus_tasks_list)
+        return virus_tasks_list
+    
+def luck_tasks_func():
+    # Gets the lines out of the luck file and puts them in a list
+    with open('ui/tasks/luck_tasks') as task:
+        luck_tasks_list = task.read().splitlines()
+        random.shuffle(luck_tasks_list)
+        return luck_tasks_list
+    
+def punish_tasks_func():
+    # Gets the lines out of the punish file and puts them in a list
+    with open('ui/tasks/punish_tasks') as task:
+        punish_tasks_list = task.read().splitlines()
+        random.shuffle(punish_tasks_list)
+        return punish_tasks_list
+    
+def quiz_tasks_func():
+    # Gets the lines out of the single_user_tasks file and puts them in a list
+    with open('ui/tasks/quiz_tasks') as task:
+        quiz_tasks_list = task.read().splitlines()
+        random.shuffle(quiz_tasks_list)
+        return quiz_tasks_list
+    
+single_user_tasks_list = single_user_task_func()
+virus_tasks_list = virus_tasks_func()
+luck_tasks_list = luck_tasks_func()
+punish_tasks_list = punish_tasks_func()
+quiz_tasks_list = quiz_tasks_func()
 
 selected_task = 'Press enter to start the first round.'
 selected_player = ''
@@ -234,14 +254,18 @@ quit_game_button_rect = pygame.Rect(1300, 650, 200, 36)
 def task_func():
 
     task_type = random.randint(1, 10)
-    print(task_type)
+
+    global single_user_tasks_list, virus_tasks_list, luck_tasks_list, punish_tasks_list, quiz_tasks_list
 
     # Virus
     if task_type == 1:
 
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(green)
-        selected_task = virus_tasks_list[(random.randint(0,(len(virus_tasks_list) -1)))]
+        selected_task = virus_tasks_list[0]
+        virus_tasks_list.pop(0)
+        if virus_tasks_list == []:
+            virus_tasks_list = virus_tasks_func()
         punishment_display = True
         return start_screen_background, selected_task, punishment, punishment_display
 
@@ -250,7 +274,10 @@ def task_func():
 
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(yellow)
-        selected_task = luck_tasks_list[(random.randint(0,(len(luck_tasks_list) -1)))]
+        selected_task = luck_tasks_list[0]
+        luck_tasks_list.pop(0)
+        if luck_tasks_list == []:
+            luck_tasks_list = luck_tasks_func()
         punishment_display = False
         return start_screen_background, selected_task, punishment, punishment_display
 
@@ -258,7 +285,10 @@ def task_func():
     elif task_type == 3:
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(red)
-        selected_task = punish_tasks_list[(random.randint(0,(len(punish_tasks_list) -1)))]
+        selected_task = punish_tasks_list[0]
+        punish_tasks_list.pop(0)
+        if punish_tasks_list == []:
+            punish_tasks_list = punish_tasks_func()
         punishment_display = False
         return start_screen_background, selected_task, punishment, punishment_display
     
@@ -266,7 +296,10 @@ def task_func():
     elif task_type == 4:
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(blue)
-        selected_task = quiz_tasks_list[(random.randint(0,(len(quiz_tasks_list) -1)))]
+        selected_task = quiz_tasks_list[0]
+        quiz_tasks_list.pop(0)
+        if quiz_tasks_list == []:
+            quiz_tasks_list = quiz_tasks_func()
         punishment_display = True
         return start_screen_background, selected_task, punishment, punishment_display
     # Task
@@ -276,7 +309,10 @@ def task_func():
         # Randomly selects a task and checks the amount of tasks
         punishment = random.randint(1, 8)
         start_screen_background = screen.fill(turqoise)
-        selected_task = single_user_tasks_list[(random.randint(0,(len(single_user_tasks_list) -1)))]
+        selected_task = single_user_tasks_list[0]
+        single_user_tasks_list.pop(0)
+        if single_user_tasks_list == []:
+            single_user_tasks_list = single_user_task_func()
         punishment_display = True
         return start_screen_background, selected_task, punishment, punishment_display
 
