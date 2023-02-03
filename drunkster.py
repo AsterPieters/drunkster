@@ -247,7 +247,7 @@ punishment = ''
 click = 0
 
 # Define Quit button
-quit_button_text = font_1.render('Quit game', True, black)
+quit_button_text = font_4.render('Quit game', True, black)
 quit_game_button_rect = pygame.Rect(1300, 650, 200, 36)
 
 
@@ -334,41 +334,38 @@ while game_screen_running:
         if event.type == pygame.QUIT:
             game_screen_running = False
         
-        #mouse = pygame.mouse.get_pos()
+        mouse = pygame.mouse.get_pos()
         #print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
                 game_screen_running = False
 
         # Checks for events
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN:
 
-            # Checks for enters and 
-            if event.key == pygame.K_RETURN:
+            # Calls the randomizers
+            selected_player = select_player_func()
+            start_screen_background, selected_task, punishment, punishment_display = task_func()
+            task_count = task_count + 1
 
-                # Calls the randomizers
-                selected_player = select_player_func()
-                start_screen_background, selected_task, punishment, punishment_display = task_func()
-                task_count = task_count + 1
-
-                # Define and display task
-                task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
-                screen.blit(task_text, (20, 250))
+            # Define and display task
+            task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
+            screen.blit(task_text, (20, 250))
 
 
 
-                if punishment_display == True:
+            if punishment_display == True:
 
-                    # Define and display or
-                    screen.blit(font_5.render('of', True, black), (150, 330))
+                # Define and display or
+                screen.blit(font_5.render('of', True, black), (150, 330))
 
-                    # Define and display punishment
-                    punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
-                    screen.blit(punishment_text, (20, 410))
+                # Define and display punishment
+                punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
+                screen.blit(punishment_text, (20, 410))
 
-                # Define task count
-                task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
-                screen.blit(task_count_text, (1300, 20))
+            # Define task count
+            task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
+            screen.blit(task_count_text, (1300, 20))
 
     # Changes color when hovering over Quit game button
     if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
