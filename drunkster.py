@@ -279,14 +279,14 @@ while game_screen_running:
 
                 # Define and display task
                 task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
-                screen.blit(task_text, (200, 250))
+                screen.blit(task_text, (20, 250))
 
                 # Define and display or
-                screen.blit(font_5.render('of', True, black), (350, 330))
+                screen.blit(font_5.render('of', True, black), (150, 330))
 
                 # Define and display punishment
                 punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
-                screen.blit(punishment_text, (200, 410))
+                screen.blit(punishment_text, (20, 410))
 
                 # Define task count
                 task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
