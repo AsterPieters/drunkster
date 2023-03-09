@@ -33,9 +33,8 @@ light_blue = (188, 218, 255)
 blue = (143, 189, 255)
 dark_brown = (104, 59, 1)
 yellow = (225, 225, 31)
-
-# Task colors
 green = (133, 217, 37)
+dark_green = (205, 255, 157)
 turqoise = (37, 183, 217)
 purple = (158, 37, 217)
 
@@ -195,8 +194,11 @@ This part of the code is for the game screen
 
 """
 
-
+# Puts default background
 start_screen_background = screen.fill(turqoise)
+
+
+# Imports the tasks
 def single_user_task_func():
     # Gets the lines out of the single_user_tasks file and puts them in a list
     with open('ui/tasks/single_user_tasks') as task:
@@ -232,12 +234,14 @@ def quiz_tasks_func():
         random.shuffle(quiz_tasks_list)
         return quiz_tasks_list
     
+# Calls function to put tasks into the lists
 single_user_tasks_list = single_user_task_func()
 virus_tasks_list = virus_tasks_func()
 luck_tasks_list = luck_tasks_func()
 punish_tasks_list = punish_tasks_func()
 quiz_tasks_list = quiz_tasks_func()
 
+# Initiate the variables
 selected_task = 'Press enter to start the first round.'
 selected_player = ''
 previous_player = ''
@@ -246,12 +250,8 @@ task_index = 0
 punishment = ''
 click = 0
 
-# Define Quit button
-quit_button_text = font_4.render('Quit game', True, black)
-quit_button_text_active = font_4.render('Quit game', True, red)
-# Define add/remove button
-add_remove_button_text = font_4.render('Add/Remove', True, black)
-add_remove_button_text_active = font_4.render('Add/Remove', True, green)
+# Define options bar
+options_bar_rect = pygame.Rect(365, 516, 200, 60)
 
 def task_func():
 
@@ -328,6 +328,10 @@ def select_player_func():
     previous_player = selected_player
     return selected_player
 
+# Initialize game screen buttons
+quit_button_text = font_4.render('Quit game', True, black)
+add_remove_button_text = font_4.render('Add/Remove', True, black)
+
 # Inializing game screen
 while game_screen_running:
 
@@ -339,53 +343,59 @@ while game_screen_running:
         mouse = pygame.mouse.get_pos()
         print(mouse)                                                                                   # DELETE TO DISPLAY MOUSE LOCATION
         if event.type == pygame.MOUSEBUTTONDOWN:
-              if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
+            if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
                 game_screen_running = False
+            
+            if 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
+                print("add player")
+            
+            else:
+                # Calls the randomizers
+                selected_player = select_player_func()
+                start_screen_background, selected_task, punishment, punishment_display = task_func()
+                task_count = task_count + 1
 
-        # Checks for events
-        if event.type == pygame.MOUSEBUTTONDOWN:
+                # Define and display task
+                task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
+                screen.blit(task_text, (20, 250))
 
-            # Calls the randomizers
-            selected_player = select_player_func()
-            start_screen_background, selected_task, punishment, punishment_display = task_func()
-            task_count = task_count + 1
+                # Display punishment if needed
+                if punishment_display == True:
 
-            # Define and display task
-            task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
-            screen.blit(task_text, (20, 250))
+                    # Define and display or
+                    screen.blit(font_5.render('of', True, black), (150, 330))
 
+                    # Define and display punishment
+                    punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
+                    screen.blit(punishment_text, (20, 410))
 
-
-            if punishment_display == True:
-
-                # Define and display or
-                screen.blit(font_5.render('of', True, black), (150, 330))
-
-                # Define and display punishment
-                punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
-                screen.blit(punishment_text, (20, 410))
-
-            # Define task count
-            task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
-            screen.blit(task_count_text, (1300, 20))
-
-
-    # Changes color when hovering over Quit game button
-    if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
-        screen.blit(quit_button_text_active, (1317, 650))
-    else:
-        screen.blit(quit_button_text, (1317, 650))
+                # Define task count
+                task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
+                screen.blit(task_count_text, (1300, 20))
 
 
-    # Changes color when hovering over Quit game button
-    if 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
-        screen.blit(add_remove_button_text_active, (1117, 650))
-    else:
-        screen.blit(add_remove_button_text, (1117, 650))
+        # Changes color when hovering over Quit game button
+        if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
+            quit_button_text = font_4.render('Quit game', True, red)
+        else:
+            quit_button_text = font_4.render('Quit game', True, black)
+        start_screen_background
+
+        # Changes color when hovering over add/remove button
+        if 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
+            add_remove_button_text = font_4.render('Add/Remove', True, dark_green)
+        else:
+            add_remove_button_text = font_4.render('Add/Remove', True, black)
+        start_screen_background
+
+    # Display options bar
+    pygame.draw.rect(screen , light_gray, pygame.Rect(1105, 641, 400, 50))
 
     # Display quit button
-    #screen.blit(quit_button_text, (1317, 650))
-    #screen.blit(add_remove_button_text, (1117, 650))
+    screen.blit(quit_button_text, (1317, 650))
+
+    # Display add/remove button
+    screen.blit(add_remove_button_text, (1117, 650))
 
     # Set the pygame window name and Update the display
     pygame.display.set_caption('Drunkster')
