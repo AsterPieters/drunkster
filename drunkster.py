@@ -33,9 +33,8 @@ light_blue = (188, 218, 255)
 blue = (143, 189, 255)
 dark_brown = (104, 59, 1)
 yellow = (225, 225, 31)
-
-# Task colors
 green = (133, 217, 37)
+dark_green = (205, 255, 157)
 turqoise = (37, 183, 217)
 purple = (158, 37, 217)
 
@@ -347,28 +346,32 @@ while game_screen_running:
             if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
                 game_screen_running = False
             
-            # Calls the randomizers
-            selected_player = select_player_func()
-            start_screen_background, selected_task, punishment, punishment_display = task_func()
-            task_count = task_count + 1
+            if 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
+                print("add player")
+            
+            else:
+                # Calls the randomizers
+                selected_player = select_player_func()
+                start_screen_background, selected_task, punishment, punishment_display = task_func()
+                task_count = task_count + 1
 
-            # Define and display task
-            task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
-            screen.blit(task_text, (20, 250))
+                # Define and display task
+                task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
+                screen.blit(task_text, (20, 250))
 
-            # Display punishment if needed
-            if punishment_display == True:
+                # Display punishment if needed
+                if punishment_display == True:
 
-                # Define and display or
-                screen.blit(font_5.render('of', True, black), (150, 330))
+                    # Define and display or
+                    screen.blit(font_5.render('of', True, black), (150, 330))
 
-                # Define and display punishment
-                punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
-                screen.blit(punishment_text, (20, 410))
+                    # Define and display punishment
+                    punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
+                    screen.blit(punishment_text, (20, 410))
 
-            # Define task count
-            task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
-            screen.blit(task_count_text, (1300, 20))
+                # Define task count
+                task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
+                screen.blit(task_count_text, (1300, 20))
 
 
         # Changes color when hovering over Quit game button
@@ -380,12 +383,12 @@ while game_screen_running:
 
         # Changes color when hovering over add/remove button
         if 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
-            add_remove_button_text = font_4.render('Add/Remove', True, green)
+            add_remove_button_text = font_4.render('Add/Remove', True, dark_green)
         else:
             add_remove_button_text = font_4.render('Add/Remove', True, black)
         start_screen_background
 
-    # Display options_bar
+    # Display options bar
     pygame.draw.rect(screen , light_gray, pygame.Rect(1105, 641, 400, 50))
 
     # Display quit button
