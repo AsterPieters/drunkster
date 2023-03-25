@@ -46,7 +46,7 @@ font_4 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 25)
 font_5 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
 
 # Add player to list function
-player_list = []
+player_list = ['test1', 'test2']
 
 # Define "enter a player" text
 enter_player_text = font_1.render('Enter a player:', True, black)
