@@ -250,6 +250,12 @@ task_index = 0
 punishment = ''
 click = 0
 
+# Define manage player function
+enter_player_textbox_rect = pygame.Rect(365, 516, 200, 60)
+active = False
+enter_player_textbox_input = ''
+error_code = ''
+
 # Define options bar
 options_bar_rect = pygame.Rect(365, 516, 200, 60)
 
@@ -346,9 +352,16 @@ while game_screen_running:
             if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
                 game_screen_running = False
             
-            if 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
+            elif 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
                 print("add player")
             
+
+
+
+
+
+
+
             else:
                 # Calls the randomizers
                 selected_player = select_player_func()
