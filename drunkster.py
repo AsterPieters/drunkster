@@ -44,6 +44,7 @@ font_2 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 80)
 font_3 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 150)
 font_4 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 25)
 font_5 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
+font_6 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 35)
 
 # Add player to list function
 player_list = ['test1', 'test2']
@@ -246,7 +247,6 @@ selected_task = 'Press enter to start the first round.'
 selected_player = ''
 previous_player = ''
 task_count = 0
-task_index = 0
 punishment = ''
 click = 0
 
@@ -268,6 +268,7 @@ def task_func():
     # Virus
     if task_type == 1:
 
+        task_type = 'Virus'
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(green)
         selected_task = virus_tasks_list[0]
@@ -275,11 +276,12 @@ def task_func():
         if virus_tasks_list == []:
             virus_tasks_list = virus_tasks_func()
         punishment_display = True
-        return start_screen_background, selected_task, punishment, punishment_display
+        return start_screen_background, selected_task, punishment, punishment_display, task_type
 
     # Luck
     elif task_type == 2:
 
+        task_type = 'Luck'
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(yellow)
         selected_task = luck_tasks_list[0]
@@ -287,10 +289,12 @@ def task_func():
         if luck_tasks_list == []:
             luck_tasks_list = luck_tasks_func()
         punishment_display = False
-        return start_screen_background, selected_task, punishment, punishment_display
+        return start_screen_background, selected_task, punishment, punishment_display, task_type
 
     # Punish
     elif task_type == 3:
+
+        task_type = 'Punishment'
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(red)
         selected_task = punish_tasks_list[0]
@@ -298,10 +302,12 @@ def task_func():
         if punish_tasks_list == []:
             punish_tasks_list = punish_tasks_func()
         punishment_display = False
-        return start_screen_background, selected_task, punishment, punishment_display
+        return start_screen_background, selected_task, punishment, punishment_display, task_type
     
     # Quiz
     elif task_type == 4:
+
+        task_type = 'Quiz'
         punishment = random.randint(1, 3)
         start_screen_background = screen.fill(blue)
         selected_task = quiz_tasks_list[0]
@@ -309,12 +315,11 @@ def task_func():
         if quiz_tasks_list == []:
             quiz_tasks_list = quiz_tasks_func()
         punishment_display = True
-        return start_screen_background, selected_task, punishment, punishment_display
+        return start_screen_background, selected_task, punishment, punishment_display, task_type
     # Task
     else:
 
-        # Fills the background
-        # Randomly selects a task and checks the amount of tasks
+        task_type = 'Task'
         punishment = random.randint(1, 8)
         start_screen_background = screen.fill(turqoise)
         selected_task = single_user_tasks_list[0]
@@ -322,7 +327,7 @@ def task_func():
         if single_user_tasks_list == []:
             single_user_tasks_list = single_user_task_func()
         punishment_display = True
-        return start_screen_background, selected_task, punishment, punishment_display
+        return start_screen_background, selected_task, punishment, punishment_display, task_type
 
 def select_player_func():
     global previous_player
@@ -365,12 +370,24 @@ while game_screen_running:
             else:
                 # Calls the randomizers
                 selected_player = select_player_func()
-                start_screen_background, selected_task, punishment, punishment_display = task_func()
+                start_screen_background, selected_task, punishment, punishment_display, task_type = task_func()
                 task_count = task_count + 1
 
-                # Define and display task
-                task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
+                # Define task and lower fond if string is too long
+                if len(selected_task) > 55:
+                    task_text = font_6.render((str(selected_player) + str(selected_task)), True, black)
+                else:
+                    task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
                 screen.blit(task_text, (20, 250))
+
+                # Define and task type
+                task_type_text = font_2.render((str(task_type)), True, black)
+                
+                # Displays task type in the midle of the screen
+                if task_type == 'Punishment':
+                    screen.blit(task_type_text, (600, 70))
+                else:
+                    screen.blit(task_type_text, (700, 70))
 
                 # Display punishment if needed
                 if punishment_display == True:
