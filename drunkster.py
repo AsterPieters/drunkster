@@ -41,6 +41,7 @@ font_6 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 35)
 
 # Add player to list function
 player_list = []
+task_index = 0
 
 # Define start game button
 start_game_text = font_1.render('Start Drunkster' , True , black)
@@ -59,8 +60,6 @@ error_code = ''
 # Define added players text
 added_players_text = font_4.render('Players: ', True, black)
 
-
-
 # Define display
 screen = pygame.display.set_mode([screen_width, screen_height])
 
@@ -70,6 +69,9 @@ height = screen.get_height()
 
 # Puts default background
 start_screen_background = screen.fill(turqoise)
+
+# Define options bar
+options_bar_rect = pygame.Rect(365, 516, 200, 60)
 
 """
 Imports the tasks into lists and randomizes the order
@@ -126,9 +128,6 @@ task_count = 0
 punishment = ''
 click = 0
 
-# Define options bar
-options_bar_rect = pygame.Rect(365, 516, 200, 60)
-
 # Adds the player name and checks for errors
 def add_player_func():
 
@@ -147,13 +146,13 @@ def add_player_func():
 # Selects random task_type and task
 def task_func():
 
+    global single_user_tasks_list, virus_tasks_list, luck_tasks_list, punish_tasks_list, quiz_tasks_list, task_index
+    
     task_type = random.randint(1, 10)
     task_index = task_index + 1
-
-    global single_user_tasks_list, virus_tasks_list, luck_tasks_list, punish_tasks_list, quiz_tasks_list
-
+    
     # Virus
-    if lambda task_type == :
+    if task_index % 5 ==0:
 
         task_type = 'Virus'
         punishment = random.randint(1, 3)
