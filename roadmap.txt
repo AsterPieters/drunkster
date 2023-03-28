@@ -1,13 +1,12 @@
 Roadmap:
 
     UI:
-        reduce font when text is to long
+        dynamicly reduce font when text is to long
         put bottles on shelf
 
     Backend:
         high & low punish tasks
         change strings into F strings
-        put a smaller font if task is longer than 59 characters
 
     Goofs:
         Working tap, with burp sound after
