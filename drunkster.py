@@ -59,19 +59,7 @@ error_code = ''
 # Define added players text
 added_players_text = font_4.render('Players: ', True, black)
 
-def add_player_func():
 
-    error_code = ''
-    if enter_player_textbox_input == '':
-        error_code = "Please enter a name!"
-        return error_code
-    elif len(enter_player_textbox_input) > 8:
-        error_code = "Please use 8 or less charachters!"
-        return error_code
-    elif enter_player_textbox_input in player_list:
-        player_list.remove(enter_player_textbox_input)
-    else:
-        player_list.append(enter_player_textbox_input)
 
 # Define display
 screen = pygame.display.set_mode([screen_width, screen_height])
@@ -141,19 +129,31 @@ click = 0
 # Define options bar
 options_bar_rect = pygame.Rect(365, 516, 200, 60)
 
-"""
-Selects a random task and task_type
+# Adds the player name and checks for errors
+def add_player_func():
 
-"""
+    error_code = ''
+    if enter_player_textbox_input == '':
+        error_code = "Please enter a name!"
+        return error_code
+    elif len(enter_player_textbox_input) > 8:
+        error_code = "Please use 8 or less charachters!"
+        return error_code
+    elif enter_player_textbox_input in player_list:
+        player_list.remove(enter_player_textbox_input)
+    else:
+        player_list.append(enter_player_textbox_input)
 
+# Selects random task_type and task
 def task_func():
 
     task_type = random.randint(1, 10)
+    task_index = task_index + 1
 
     global single_user_tasks_list, virus_tasks_list, luck_tasks_list, punish_tasks_list, quiz_tasks_list
 
     # Virus
-    if task_type == 1:
+    if lambda task_type == :
 
         task_type = 'Virus'
         punishment = random.randint(1, 3)
@@ -203,6 +203,7 @@ def task_func():
             quiz_tasks_list = quiz_tasks_func()
         punishment_display = True
         return start_screen_background, selected_task, punishment, punishment_display, task_type
+    
     # Task
     else:
 
@@ -216,10 +217,10 @@ def task_func():
         punishment_display = True
         return start_screen_background, selected_task, punishment, punishment_display, task_type
 
+# Randomly selects a player and avoids choosing it twice in a row
 def select_player_func():
     global previous_player
 
-    # Randomly selects a player and avoids choosing it twice in a row
     selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
     while selected_player == previous_player:
         selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
@@ -228,7 +229,7 @@ def select_player_func():
 
 # Initialize game screen buttons
 quit_button_text = font_4.render('Quit game', True, black)
-add_remove_button_text = font_4.render('Add/Remove', True, black)
+add_remove_button_text = font_4.render('Return Home', True, black)
 
 # Inializing loops
 start_screen_running = True
