@@ -152,7 +152,7 @@ def task_func():
     task_index = task_index + 1
     
     # Virus
-    if task_index % 5 ==0:
+    if task_index % 5 == 0:
 
         task_type = 'Virus'
         punishment = random.randint(1, 3)
