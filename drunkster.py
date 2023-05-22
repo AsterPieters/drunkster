@@ -77,48 +77,19 @@ options_bar_rect = pygame.Rect(365, 516, 200, 60)
 Imports the tasks into lists and randomizes the order
 
 """
-
-def single_user_task_func():
-    # Gets the lines out of the single_user_tasks file and puts them in a list
-    with open('ui/tasks/single_user_tasks') as task:
-        single_user_tasks_list = task.read().splitlines()
-        random.shuffle(single_user_tasks_list)
-        return single_user_tasks_list
-
-def virus_tasks_func():
-    # Gets the lines out of the virus file and puts them in a list
-    with open('ui/tasks/virus_tasks') as task:
-        virus_tasks_list = task.read().splitlines()
-        random.shuffle(virus_tasks_list)
-        return virus_tasks_list
+##### Imports files #####
+def import_tasks(location):
+    with open(location) as task:
+        task_list = task.read().splitlines()
+        random.shuffle(task_list)
+        return task_list
     
-def luck_tasks_func():
-    # Gets the lines out of the luck file and puts them in a list
-    with open('ui/tasks/luck_tasks') as task:
-        luck_tasks_list = task.read().splitlines()
-        random.shuffle(luck_tasks_list)
-        return luck_tasks_list
-    
-def punish_tasks_func():
-    # Gets the lines out of the punish file and puts them in a list
-    with open('ui/tasks/punish_tasks') as task:
-        punish_tasks_list = task.read().splitlines()
-        random.shuffle(punish_tasks_list)
-        return punish_tasks_list
-    
-def quiz_tasks_func():
-    # Gets the lines out of the single_user_tasks file and puts them in a list
-    with open('ui/tasks/quiz_tasks') as task:
-        quiz_tasks_list = task.read().splitlines()
-        random.shuffle(quiz_tasks_list)
-        return quiz_tasks_list
-    
-# Calls function to put tasks into the lists
-single_user_tasks_list = single_user_task_func()
-virus_tasks_list = virus_tasks_func()
-luck_tasks_list = luck_tasks_func()
-punish_tasks_list = punish_tasks_func()
-quiz_tasks_list = quiz_tasks_func()
+##### Put tasks into list #####
+single_user_tasks_list = import_tasks('tasks/single_user_tasks')
+virus_tasks_list = import_tasks('tasks/virus_tasks')
+luck_tasks_list = import_tasks('tasks/luck_tasks')
+punish_tasks_list = import_tasks('tasks/punish_tasks')
+quiz_tasks_list = import_tasks('tasks/quiz_tasks')
 
 # Initiate the variables
 selected_task = 'Press enter to start the first round.'
