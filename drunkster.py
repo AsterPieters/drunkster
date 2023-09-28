@@ -10,26 +10,20 @@ from helpers.task import *
 pygame.init()
 
 # Define resolution
-screen_width=1535
-screen_height=715
+#screen_width=1535
+#screen_height=715
 player_width = 500
-
+screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h
 # Define colors
 white = (255, 255, 255)
 light_gray = (205, 205, 205)
 gray = (50, 50, 50)
-dark_gray = (150, 150, 150)
 black = (0, 0, 0)
 red = (255, 0, 0)
-dark_red = (155, 0, 0)
-light_blue = (188, 218, 255)
 blue = (143, 189, 255)
-dark_brown = (104, 59, 1)
-yellow = (225, 225, 31)
 green = (133, 217, 37)
 dark_green = (205, 255, 157)
 turqoise = (37, 183, 217)
-purple = (158, 37, 217)
 
 # Define fonts
 font_1 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
@@ -61,7 +55,8 @@ error_code = ''
 added_players_text = font_4.render('Players: ', True, black)
 
 # Define display
-screen = pygame.display.set_mode([screen_width, screen_height])
+#screen = pygame.display.set_mode([screen_width, screen_height])
+screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 
 # Stores the width & height into variables
 width = screen.get_width()
@@ -80,13 +75,6 @@ previous_player = ''
 task_count = 0
 punishment = ''
 click = 0
-
-##### Initialize the categories #####
-""" luck = Luck(screen)
-punishment = Punishment(screen)
-quiz = Quiz(screen)
-task = Task(screen)
-virus = Virus(screen) """
 
 # Adds the player name and checks for errors
 def add_player_func():
@@ -256,39 +244,49 @@ while game_running:
                 else:
                     # Calls the randomizers
                     selected_player = select_player_func()
-                    categorie, task_index = task_(screen, task_index)
-                    start_screen_background = categorie.theme
-                    selected_task = categorie.get_quest()
-                    punishment = categorie.shots
-                    punishment_display = categorie.punish
-                    task_type = categorie.type
+                    category, task_index = task_(screen, task_index)
+                    start_screen_background = category.theme
+                    selected_task = category.get_quest()
+                    punishment = category.shots
+                    punishment_display = category.punish
+                    task_type = category.type
                     task_count = task_count + 1
+
+                    ##### Display quest icon #####
+                    icon = pygame.image.load(f'ui/icons/{task_type}.png')
+                    icon_width, icon_height = icon.get_size()
+                    x = (screen_width - icon_width) // 2
+                    y = (screen_height - icon_height) // 8
+                    screen.blit(icon, (x, y))
 
                     # Define task and lower fond if string is too long
                     if len(selected_task) > 55:
                         task_text = font_6.render((str(selected_player) + str(selected_task)), True, black)
                     else:
                         task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
-                    screen.blit(task_text, (20, 250))
-
-                    # Define and task type
-                    task_type_text = font_2.render((str(task_type)), True, black)
                     
-                    # Displays task type in the midle of the screen
-                    if task_type == 'Punishment':
-                        screen.blit(task_type_text, (600, 70))
-                    else:
-                        screen.blit(task_type_text, (700, 70))
+                    ##### Display text in the middle of the screen #####
+                    quest_width, quest_height = task_text.get_size()
+                    x = (screen_width - quest_width) // 2
+                    y = (screen_height - quest_height) // 2
+                    screen.blit(task_text, (x, y))
 
                     # Display punishment if needed
                     if punishment_display == True:
 
                         # Define and display or
-                        screen.blit(font_5.render('of', True, black), (150, 330))
+                        or_text = font_5.render('or', True, black)
+                        or_width, or_height = or_text.get_size()
+                        x = (screen_width - or_width) // 2
+                        y = (screen_height - or_height) // 2
+                        screen.blit(or_text, (x, y+75))
 
                         # Define and display punishment
-                        punishment_text = font_5.render('Drink ' + str(punishment) + ' slok(ken)', True, black)
-                        screen.blit(punishment_text, (20, 410))
+                        punishment_text = font_5.render('Take ' + str(punishment) + ' shot(s)', True, black)
+                        punishment_width, punishment_height = punishment_text.get_size()
+                        x = (screen_width - punishment_width) // 2
+                        y = (screen_height - punishment_height) // 2 
+                        screen.blit(punishment_text, (x, y+150))
 
                     # Define task count
                     task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
