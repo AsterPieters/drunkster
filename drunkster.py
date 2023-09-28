@@ -73,11 +73,7 @@ start_screen_background = screen.fill(turqoise)
 # Define options bar
 options_bar_rect = pygame.Rect(365, 516, 200, 60)
 
-"""
-Imports the tasks into lists and randomizes the order
-
-"""
-##### Imports files #####
+##### Imports tasks #####
 def import_tasks(location):
     with open(location) as task:
         task_list = task.read().splitlines()
@@ -116,6 +112,8 @@ def add_player_func():
 
 # Selects random task_type and task
 def task_func():
+
+    
 
     global single_user_tasks_list, virus_tasks_list, luck_tasks_list, punish_tasks_list, quiz_tasks_list, task_index
     
@@ -270,7 +268,7 @@ while game_running:
             
             # Changes color when hovering over start game button
             if 20 <= mouse[0] <= 380 and 470 <= mouse[1] <= 510:
-                start_game_text = font_1.render('Start Drunkster' , True , gray)
+                start_game_text = font_1.render('Start Drunkster' , True , white)
             else:
                 start_game_text = font_1.render('Start Drunkster' , True , black)
 
