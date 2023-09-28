@@ -13,3 +13,15 @@ To use drunkster:
         pip install pygame
         python drunkster.py
 
+Roadmap:
+
+    UI:
+        dynamicly reduce font when text is to long
+        put bottles on shelf
+
+    Backend:
+        high & low punish tasks
+        change strings into F strings
+
+    Goofs:
+        Working tap, with burp sound after

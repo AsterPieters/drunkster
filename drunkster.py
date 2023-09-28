@@ -4,7 +4,7 @@
 # Imports
 import pygame
 import random
-import time
+from helpers.task import *
 
 # Initializing pygame
 pygame.init()
@@ -73,20 +73,6 @@ start_screen_background = screen.fill(turqoise)
 # Define options bar
 options_bar_rect = pygame.Rect(365, 516, 200, 60)
 
-##### Imports tasks #####
-def import_tasks(location):
-    with open(location) as task:
-        task_list = task.read().splitlines()
-        random.shuffle(task_list)
-        return task_list
-    
-##### Put tasks into list #####
-single_user_tasks_list = import_tasks('tasks/single_user_tasks')
-virus_tasks_list = import_tasks('tasks/virus_tasks')
-luck_tasks_list = import_tasks('tasks/luck_tasks')
-punish_tasks_list = import_tasks('tasks/punish_tasks')
-quiz_tasks_list = import_tasks('tasks/quiz_tasks')
-
 # Initiate the variables
 selected_task = 'Press enter to start the first round.'
 selected_player = ''
@@ -94,6 +80,13 @@ previous_player = ''
 task_count = 0
 punishment = ''
 click = 0
+
+##### Initialize the categories #####
+""" luck = Luck(screen)
+punishment = Punishment(screen)
+quiz = Quiz(screen)
+task = Task(screen)
+virus = Virus(screen) """
 
 # Adds the player name and checks for errors
 def add_player_func():
@@ -110,80 +103,6 @@ def add_player_func():
     else:
         player_list.append(enter_player_textbox_input)
 
-# Selects random task_type and task
-def task_func():
-
-    
-
-    global single_user_tasks_list, virus_tasks_list, luck_tasks_list, punish_tasks_list, quiz_tasks_list, task_index
-    
-    task_type = random.randint(1, 10)
-    task_index = task_index + 1
-    
-    # Virus
-    if task_index % 5 == 0:
-
-        task_type = 'Virus'
-        punishment = random.randint(1, 3)
-        start_screen_background = screen.fill(green)
-        selected_task = virus_tasks_list[0]
-        virus_tasks_list.pop(0)
-        if virus_tasks_list == []:
-            virus_tasks_list = virus_tasks_func()
-        punishment_display = True
-        return start_screen_background, selected_task, punishment, punishment_display, task_type
-
-    # Luck
-    elif task_type == 2:
-
-        task_type = 'Luck'
-        punishment = random.randint(1, 3)
-        start_screen_background = screen.fill(yellow)
-        selected_task = luck_tasks_list[0]
-        luck_tasks_list.pop(0)
-        if luck_tasks_list == []:
-            luck_tasks_list = luck_tasks_func()
-        punishment_display = False
-        return start_screen_background, selected_task, punishment, punishment_display, task_type
-
-    # Punish
-    elif task_type == 3:
-
-        task_type = 'Punishment'
-        punishment = random.randint(1, 3)
-        start_screen_background = screen.fill(red)
-        selected_task = punish_tasks_list[0]
-        punish_tasks_list.pop(0)
-        if punish_tasks_list == []:
-            punish_tasks_list = punish_tasks_func()
-        punishment_display = False
-        return start_screen_background, selected_task, punishment, punishment_display, task_type
-    
-    # Quiz
-    elif task_type == 4:
-
-        task_type = 'Quiz'
-        punishment = random.randint(1, 3)
-        start_screen_background = screen.fill(blue)
-        selected_task = quiz_tasks_list[0]
-        quiz_tasks_list.pop(0)
-        if quiz_tasks_list == []:
-            quiz_tasks_list = quiz_tasks_func()
-        punishment_display = True
-        return start_screen_background, selected_task, punishment, punishment_display, task_type
-    
-    # Task
-    else:
-
-        task_type = 'Task'
-        punishment = random.randint(1, 8)
-        start_screen_background = screen.fill(turqoise)
-        selected_task = single_user_tasks_list[0]
-        single_user_tasks_list.pop(0)
-        if single_user_tasks_list == []:
-            single_user_tasks_list = single_user_task_func()
-        punishment_display = True
-        return start_screen_background, selected_task, punishment, punishment_display, task_type
 
 # Randomly selects a player and avoids choosing it twice in a row
 def select_player_func():
@@ -280,12 +199,6 @@ while game_running:
         left_plank = pygame.image.load('ui/images/left_plank.png')
         screen.blit(left_plank, (5, 437))
 
-        for player in player_list:
-            if player == 'Marc' or player == 'marc':
-            # Display Marc
-                marc = pygame.image.load('ui/images/marc.png')
-                screen.blit(marc, (1200, 120))
-
         # Display right plank
         left_plank = pygame.image.load('ui/images/right_plank.png')
         screen.blit(left_plank, (1169, 344))
@@ -343,7 +256,12 @@ while game_running:
                 else:
                     # Calls the randomizers
                     selected_player = select_player_func()
-                    start_screen_background, selected_task, punishment, punishment_display, task_type = task_func()
+                    categorie, task_index = task_(screen, task_index)
+                    start_screen_background = categorie.theme
+                    selected_task = categorie.get_quest()
+                    punishment = categorie.shots
+                    punishment_display = categorie.punish
+                    task_type = categorie.type
                     task_count = task_count + 1
 
                     # Define task and lower fond if string is too long
