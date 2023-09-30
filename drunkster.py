@@ -147,11 +147,13 @@ while game_running:
 
         # Display added players text & rectangle
         screen.blit(added_players_text, (1200, 400))
+
         
         ##### Start game button #####
-        start_game_button = Button(screen_width // 2 - 460 // 2, screen_height // 2 - 20 // 2, 460, 460, "Start Drunkster")
-        start_game_button.draw(screen)
-        start_game_button.activate()
+        start_game_button = Button(screen_width // 2 - 460 // 2, screen_height // 2 - 20 // 2, 460, 460, "Start Drunkster", event, screen, test())
+
+        def test():
+            print("test")
 
         # Displays the players
         for player in player_list:

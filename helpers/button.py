@@ -1,7 +1,7 @@
 import pygame
 
 class Button:
-    def __init__(self, x, y, width, height, text, click_callback=None):
+    def __init__(self, x, y, width, height, text, event, screen, click_callback=None):
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
         self.text_color = (255, 255, 255)
@@ -9,7 +9,8 @@ class Button:
         self.color_hover = (133, 217, 37)
         self.is_hovered = False
         self.click_callback = click_callback
-        self.handle_event()
+        self.draw(screen)
+        self.handle_event(event)
 
     def draw(self, screen):
 
@@ -39,4 +40,3 @@ class Button:
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.rect.collidepoint(event.pos) and self.click_callback:
                     self.click_callback()
-
