@@ -5,6 +5,7 @@
 import pygame
 import random
 from helpers.task import *
+from helpers.button import Button
 
 # Initializing pygame
 pygame.init()
@@ -55,7 +56,6 @@ error_code = ''
 added_players_text = font_4.render('Players: ', True, black)
 
 # Define display
-#screen = pygame.display.set_mode([screen_width, screen_height])
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 
 # Stores the width & height into variables
@@ -76,31 +76,6 @@ task_count = 0
 punishment = ''
 click = 0
 
-# Adds the player name and checks for errors
-def add_player_func():
-
-    error_code = ''
-    if enter_player_textbox_input == '':
-        error_code = "Please enter a name!"
-        return error_code
-    elif len(enter_player_textbox_input) > 8:
-        error_code = "Please use 8 or less charachters!"
-        return error_code
-    elif enter_player_textbox_input in player_list:
-        player_list.remove(enter_player_textbox_input)
-    else:
-        player_list.append(enter_player_textbox_input)
-
-
-# Randomly selects a player and avoids choosing it twice in a row
-def select_player_func():
-    global previous_player
-
-    selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
-    while selected_player == previous_player:
-        selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
-    previous_player = selected_player
-    return selected_player
 
 # Initialize game screen buttons
 quit_button_text = font_4.render('Quit game', True, black)
@@ -139,45 +114,12 @@ while game_running:
                 else:
                     active = False
     
-            # Checks for textbox events
-            if event.type == pygame.KEYDOWN:
-    
-                # Check for backspace
-                if event.key == pygame.K_BACKSPACE:
-    
-                    # get text input from 0 to -1 i.e. end.
-                    enter_player_textbox_input = enter_player_textbox_input[:-1]
 
-                # Unicode standard is used for string formation
-                else:
-                    enter_player_textbox_input += event.unicode
-
-            # Checks for textbox events
-            if event.type == pygame.KEYDOWN:
-
-                # Checks for enters
-                if event.key == pygame.K_RETURN:
-                    enter_player_textbox_input = enter_player_textbox_input[:-1]
-                    error_code = add_player_func()
-                    enter_player_textbox_input = ''
 
             # For events that occur upon clicking the mouse (left click)
             mouse = pygame.mouse.get_pos()
 
-            # Start drunkster button
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if 20 <= mouse[0] <= 380 and 470 <= mouse[1] <= 510:
-                    if len(player_list) < 2:
-                        error_code = 'Please add at least 2 players!'
-                    else:
-                        game_screen_running = True
-                        start_screen_running = False
-            
-            # Changes color when hovering over start game button
-            if 20 <= mouse[0] <= 380 and 470 <= mouse[1] <= 510:
-                start_game_text = font_1.render('Start Drunkster' , True , white)
-            else:
-                start_game_text = font_1.render('Start Drunkster' , True , black)
+
 
         # Display error
         error_text = font_1.render(error_code, True, red)
@@ -203,12 +145,14 @@ while game_running:
         text_surface = font_1.render(enter_player_textbox_input, True, (black))
         screen.blit(text_surface, (380, 520))
 
-        # Displays "Start Drunkster" button
-        screen.blit(start_game_text , (20, 460))
-
         # Display added players text & rectangle
         screen.blit(added_players_text, (1200, 400))
         
+        ##### Start game button #####
+        start_game_button = Button(screen_width // 2 - 460 // 2, screen_height // 2 - 20 // 2, 460, 460, "Start Drunkster")
+        start_game_button.draw(screen)
+        start_game_button.activate()
+
         # Displays the players
         for player in player_list:
             player_list_text = font_1.render(player, True, black)
