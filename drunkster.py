@@ -1,18 +1,18 @@
 # Drunkster, Get drunk or DIE!
 # A drinking game by Aster Pieters
 
-# Imports
 import pygame
 import random
 from helpers.task import *
+from helpers.players import *
 from helpers.button import Button
+from helpers.textbox import Textbox
+import pdb
 
 # Initializing pygame
 pygame.init()
 
 # Define resolution
-#screen_width=1535
-#screen_height=715
 player_width = 500
 screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h
 # Define colors
@@ -27,6 +27,7 @@ dark_green = (205, 255, 157)
 turqoise = (37, 183, 217)
 
 # Define fonts
+font = pygame.font.Font(None, 36)
 font_1 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
 font_2 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 80)
 font_3 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 150)
@@ -35,22 +36,26 @@ font_5 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
 font_6 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 35)
 
 # Add player to list function
-player_list = []
+players = []
 task_index = 0
+user_input = ''
+message = ''
 
 # Define start game button
 start_game_text = font_1.render('Start Drunkster' , True , black)
 
 # Define "enter a player" text
-enter_player_text = font_1.render('Enter a player:', True, black)
-title_top_text = font_3.render('Drunkster', True, black)
-title_bottom_text = font_2.render('Get drunk or DIE', True, black)
+enter_player_text = font_6.render('Enter a player:', True, black)
 
-# Define enter player textbox & Rectangle
-enter_player_textbox_rect = pygame.Rect(365, 516, 200, 60)
-active = False
-enter_player_textbox_input = ''
-error_code = ''
+# Define and center the title 
+title_top_text = font_3.render('Drunkster', True, black)
+title_top_rect = title_top_text.get_rect()
+title_top_rect.center = (screen_width // 2, 75)
+
+# Define and center the text
+title_bottom_text = font_2.render('Get drunk or DIE', True, black)
+title_bottom_rect = title_bottom_text.get_rect()
+title_bottom_rect.center = (screen_width // 2, 200)
 
 # Define added players text
 added_players_text = font_4.render('Players: ', True, black)
@@ -76,15 +81,23 @@ task_count = 0
 punishment = ''
 click = 0
 
-
-# Initialize game screen buttons
-quit_button_text = font_4.render('Quit game', True, black)
-add_remove_button_text = font_4.render('Return Home', True, black)
-
 # Inializing loops
 start_screen_running = True
 game_screen_running = False
 game_running = True
+
+
+# Add player textbox
+new_player = None
+left_plank = pygame.image.load('ui/images/left_plank.png')
+screen.blit(left_plank, (5, screen_height - 465))
+enter_player_textbox = Textbox(50, screen_height - 400, 300, 75, screen, user_input)
+
+# Create buttons
+start_game_button = Button(50, screen_height - 100, 300, 75, "Start Drunkster", screen)
+next_task_button = Button(50, screen_height - 300, 300, 75, "Next task", screen)
+go_home_button = Button(50, screen_height - 200, 300, 75, "Back", screen)
+quit_game_button = Button(50, screen_height - 100, 300, 75, "Quit game", screen)
 
 while game_running:
 
@@ -101,64 +114,52 @@ while game_running:
         bg = pygame.image.load('ui/images/bar.png')
         screen.blit(bg, (0,0))
 
-        # Ends loop when quit window button is pressed
+        # Add player textbox
+        enter_player_textbox.draw()
+
+        # Start game button
+        start_game_button.draw()
+
+        # Go to the game screen
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                start_screen_running = False
-                game_screen_running = False
-                game_running = False
+            if start_game_button.check_event(event):
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if enter_player_textbox_rect.collidepoint(event.pos):
-                    active = True
+                # Check if players were entered.
+                if players:
+                    start_screen_running = False
+                    game_screen_running = True
+                    game_running = True
                 else:
-                    active = False
-    
+                    message = "Please enter at least 2 players!"
 
+            # Check if player is added
+            new_player = enter_player_textbox.check_event(event)
 
-            # For events that occur upon clicking the mouse (left click)
-            mouse = pygame.mouse.get_pos()
-
-
-
-        # Display error
-        error_text = font_1.render(error_code, True, red)
-        screen.blit(error_text, (400, 640))
-
-        # Display left plank
-        left_plank = pygame.image.load('ui/images/left_plank.png')
-        screen.blit(left_plank, (5, 437))
+        # Add new players to list
+        if new_player:
+            message = add_player(new_player, players)
+        
+        # Display messages
+        if message:
+            message_text = font_1.render(message, True, red)
+            screen.blit(message_text, (400, 640))
 
         # Display right plank
-        left_plank = pygame.image.load('ui/images/right_plank.png')
-        screen.blit(left_plank, (1169, 344))
+        right_plank = pygame.image.load('ui/images/right_plank.png')
+        screen.blit(right_plank, (screen_width // 2, screen_height - 460 ))
 
         # Set the pygame window name
         pygame.display.set_caption('Drunkster')
 
         # Displays text
-        screen.blit(enter_player_text, (20, 520))
-        screen.blit(title_top_text, (440, 0))
-        screen.blit(title_bottom_text, (480, 135))
-
-        # Displays "Add player" textbox
-        text_surface = font_1.render(enter_player_textbox_input, True, (black))
-        screen.blit(text_surface, (380, 520))
-
-        # Display added players text & rectangle
-        screen.blit(added_players_text, (1200, 400))
-
-        
-        ##### Start game button #####
-        start_game_button = Button(screen_width // 2 - 460 // 2, screen_height // 2 - 20 // 2, 460, 460, "Start Drunkster", event, screen, test())
-
-        def test():
-            print("test")
+        screen.blit(enter_player_text, (50, screen_height - 450))
+        screen.blit(title_top_text, title_top_rect)
+        screen.blit(title_bottom_text, title_bottom_rect)
 
         # Displays the players
-        for player in player_list:
-            player_list_text = font_1.render(player, True, black)
-            screen.blit(font_4.render(player, True, black), (1300 , 400 + (25 * player_list.index(player))))
+        for player in players:
+            players_text = font_1.render(player, True, black)
+            screen.blit(font_4.render(player, True, black), (1300 , 400 + (25 * players.index(player))))
 
         # Update the display
         pygame.display.update()
@@ -167,98 +168,42 @@ while game_running:
     start_screen_background = screen.fill(blue)
     while game_screen_running:
 
-        # Ends loop when quit window button is pressed
+        # Draw the buttons
+        next_task_button.draw()
+        go_home_button.draw()
+        quit_game_button.draw()
+
+        # Check the events
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            
+            # Quit the game
+            if quit_game_button.check_event(event):
                 start_screen_running = False
                 game_screen_running = False
                 game_running = False
-            
-            mouse = pygame.mouse.get_pos()
 
-            # Home & Quit button
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
-                    start_screen_running = False
-                    game_screen_running = False
-                    game_running = False
-                
-                elif 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
-                    start_screen_running = True
-                    game_screen_running = False
-                
-                else:
-                    # Calls the randomizers
-                    selected_player = select_player_func()
-                    category, task_index = task_(screen, task_index)
-                    start_screen_background = category.theme
-                    selected_task = category.get_quest()
-                    punishment = category.shots
-                    punishment_display = category.punish
-                    task_type = category.type
-                    task_count = task_count + 1
+            # Next task
+            if next_task_button.check_event(event):
+                # Select a player
+                selected_player = select_player(players, previous_player)
 
-                    ##### Display quest icon #####
-                    icon = pygame.image.load(f'ui/icons/{task_type}.png')
-                    icon_width, icon_height = icon.get_size()
-                    x = (screen_width - icon_width) // 2
-                    y = (screen_height - icon_height) // 8
-                    screen.blit(icon, (x, y))
+                # Show the new task
+                next_task(selected_player, screen, task_count)
+                task_count = task_count + 1
 
-                    # Define task and lower fond if string is too long
-                    if len(selected_task) > 55:
-                        task_text = font_6.render((str(selected_player) + str(selected_task)), True, black)
-                    else:
-                        task_text = font_5.render((str(selected_player) + str(selected_task)), True, black)
-                    
-                    ##### Display text in the middle of the screen #####
-                    quest_width, quest_height = task_text.get_size()
-                    x = (screen_width - quest_width) // 2
-                    y = (screen_height - quest_height) // 2
-                    screen.blit(task_text, (x, y))
+                # Set player to previous player
+                previous_player = selected_player
 
-                    # Display punishment if needed
-                    if punishment_display == True:
+                # Define task count
+                task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
+                screen.blit(task_count_text, (1300, 20))
 
-                        # Define and display or
-                        or_text = font_5.render('or', True, black)
-                        or_width, or_height = or_text.get_size()
-                        x = (screen_width - or_width) // 2
-                        y = (screen_height - or_height) // 2
-                        screen.blit(or_text, (x, y+75))
+            # Go back to the start screen
+            if go_home_button.check_event(event):
+                start_screen_running = True
+                game_screen_running = False
+                game_running = True
 
-                        # Define and display punishment
-                        punishment_text = font_5.render('Take ' + str(punishment) + ' shot(s)', True, black)
-                        punishment_width, punishment_height = punishment_text.get_size()
-                        x = (screen_width - punishment_width) // 2
-                        y = (screen_height - punishment_height) // 2 
-                        screen.blit(punishment_text, (x, y+150))
-
-                    # Define task count
-                    task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
-                    screen.blit(task_count_text, (1300, 20))
-
-
-            # Changes color when hovering over Quit game button
-            if 1300 <= mouse[0] <= 1500 and 650 <= mouse[1] <= 686:
-                quit_button_text = font_4.render('Quit game', True, red)
-            else:
-                quit_button_text = font_4.render('Quit game', True, black)
-            start_screen_background
-
-            # Changes color when hovering over Home button
-            if 1100 <= mouse[0] <= 1275 and 650 <= mouse[1] <= 686:
-                add_remove_button_text = font_4.render('Return Home', True, dark_green)
-            else:
-                add_remove_button_text = font_4.render('Return Home', True, black)
-            start_screen_background
-
-        # Display options bar
-        pygame.draw.rect(screen , light_gray, pygame.Rect(1105, 641, 400, 50))
-
-        # Display home & quit button
-        screen.blit(quit_button_text, (1317, 650))
-        screen.blit(add_remove_button_text, (1117, 650))
 
         # Set the pygame window name and Update the display
         pygame.display.set_caption('Drunkster')

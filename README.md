@@ -1,5 +1,6 @@
 # drunkster
-Drunkster, get drunk or DIE
+DRUNKSTER, get drunk or DIE
+A drinking game made by Aster Pieters.
 
 To use drunkster:
 
@@ -13,15 +14,16 @@ To use drunkster:
         pip install pygame
         python drunkster.py
 
+    Macos:
+        Buy a pc
+
 Roadmap:
 
     UI:
-        dynamicly reduce font when text is to long
         put bottles on shelf
 
     Backend:
         high & low punish tasks
-        change strings into F strings
 
     Goofs:
         Working tap, with burp sound after

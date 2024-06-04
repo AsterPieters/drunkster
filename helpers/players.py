@@ -1,25 +1,30 @@
 # Adds the player name and checks for errors
-def add_player_func():
+import random
 
-    error_code = ''
-    if enter_player_textbox_input == '':
-        error_code = "Please enter a name!"
-        return error_code
-    elif len(enter_player_textbox_input) > 8:
-        error_code = "Please use 8 or less charachters!"
-        return error_code
-    elif enter_player_textbox_input in player_list:
-        player_list.remove(enter_player_textbox_input)
+def add_player(new_player, players):
+    if new_player == '':
+        message = "Name cannot be empty"
+
+    elif len(new_player) > 8:
+        message = "Please use 8 or less charachters!"
+
+    # Double add to remove player
+    elif new_player in players:
+        players.remove(new_player)
+        message = f"Removed player {new_player}!"
+
+    # Add player
     else:
-        player_list.append(enter_player_textbox_input)
+        players.append(new_player)
+        message = f"Added player {new_player}!"
+    return message
 
+def select_player(players, previous_player):
+    # Select a random player
+    selected_player = players[(random.randint(0,(len(players) -1)))]
 
-# Randomly selects a player and avoids choosing it twice in a row
-def select_player_func():
-    global previous_player
-
-    selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
+    # Checks for previeus player
     while selected_player == previous_player:
-        selected_player = player_list[(random.randint(0,(len(player_list) -1)))]
-    previous_player = selected_player
+        selected_player = players[(random.randint(0,(len(players) -1)))]
+
     return selected_player

@@ -3,9 +3,9 @@ import random
 # Import the task per categorie
 def import_categories(categorie):
 
-    with open(f"./categories/{categorie}.txt") as quest:
-        quest_list = quest.read().splitlines()
-        return quest_list
+    with open(f"./categories/{categorie}.txt") as task:
+        task_list = task.read().splitlines()
+        return task_list
 
 
 
@@ -17,16 +17,16 @@ class Luck:
         self.shots = random.randint(1, 3)
         self.theme = screen.fill(self.colour) # Yellow
         self.punish = False
-        self.quests = []
+        self.tasks = []
 
-    def get_quest(self):
+    def get_task(self):
 
-        if not self.quests:
-            self.quests = import_categories('luck')
+        if not self.tasks:
+            self.tasks = import_categories('luck')
 
-        selected_quest = self.quests[0]
-        self.quests.pop()
-        return selected_quest
+        selected_task = self.tasks[0]
+        self.tasks.pop()
+        return selected_task
 
 
 
@@ -38,16 +38,16 @@ class Punishment:
         self.shots = random.randint(1, 3)
         self.theme = screen.fill(self.colour) #Red
         self.punish = True
-        self.quests = []
+        self.tasks = []
 
-    def get_quest(self):
+    def get_task(self):
 
-        if not self.quests:
-            self.quests = import_categories('punishment')
+        if not self.tasks:
+            self.tasks = import_categories('punishment')
 
-        selected_quest = self.quests[0]
-        self.quests.pop()
-        return selected_quest
+        selected_task = self.tasks[0]
+        self.tasks.pop()
+        return selected_task
     
 
 
@@ -59,20 +59,20 @@ class Quiz:
         self.shots = random.randint(1, 3)
         self.theme = screen.fill(self.colour) #Blue
         self.punish = True
-        self.quests = []
+        self.tasks = []
 
-    def get_quest(self):
+    def get_task(self):
 
-        if not self.quests:
-            self.quests = import_categories('quiz')
+        if not self.tasks:
+            self.tasks = import_categories('quiz')
 
-        selected_quest = self.quests[0]
-        self.quests.pop()
-        return selected_quest
+        selected_task = self.tasks[0]
+        self.tasks.pop()
+        return selected_task
     
 
 
-class Task:
+class Quest:
     def __init__(self, screen):
 
         self.colour = (0, 255, 255)
@@ -80,16 +80,16 @@ class Task:
         self.shots = random.randint(1, 8)
         self.theme = screen.fill(self.colour) #Turqoise
         self.punish = True
-        self.quests = []
+        self.tasks = []
 
-    def get_quest(self):
+    def get_task(self):
 
-        if not self.quests:
-            self.quests = import_categories('task')
+        if not self.tasks:
+            self.tasks = import_categories('quest')
 
-        selected_quest = self.quests[0]
-        self.quests.pop()
-        return selected_quest
+        selected_task = self.tasks[0]
+        self.tasks.pop()
+        return selected_task
     
 
 
@@ -101,13 +101,13 @@ class Virus:
         self.shots = random.randint(1, 8)
         self.theme = screen.fill(self.colour) #Green
         self.punish = True
-        self.quests = []
+        self.tasks = []
 
-    def get_quest(self):
+    def get_task(self):
 
-        if not self.quests:
-            self.quests = import_categories('virus')
+        if not self.tasks:
+            self.tasks = import_categories('virus')
 
-        selected_quest = self.quests[0]
-        self.quests.pop()
-        return selected_quest
+        selected_task = self.tasks[0]
+        self.tasks.pop()
+        return selected_task
