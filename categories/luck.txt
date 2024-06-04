@@ -9,3 +9,51 @@
 , deel evenveel slokken uit als letters in je naam.
 , Deel evenveel slokken uit als het aantal landen dat je hebt bezocht.
 , Iedereen neemt een slok behalve jij.
+
+,Deel 5 slokken uit.
+,Deel 2 slokken uit.
+,Deel evenveel slokken uit als spelers.
+,Laat iemand z’n glas uitdrinken.
+,Kies 2 mates tot het volgende geluk.
+,Geef 3 slokken aan de knapste speler.
+,Geef 3 slokken aan de slimste speler.
+,Deel evenveel slokken uit als witte kleren dat je aanhebt.
+,Deel evenveel slokken uit als letters in je naam.
+,Deel evenveel slokken uit als het aantal landen dat je hebt bezocht.
+,Iedereen neemt een slok behalve jij.
+,Kies iemand die een slok moet nemen.
+,Neem 3 slokken.
+,Kies iemand die 5 slokken moet nemen.
+,Neem een slok voor elke persoon die je kent die [naam van een drankje] drinkt.
+,Kies iemand die een dansje moet doen.
+,Vertel een grap en als het lukt, mag iedereen behalve jij een slok nemen.
+,Iedereen mag 2 slokken nemen behalve jij.
+,Neem een slok voor elk dier dat je in de kamer ziet.
+,Geef 2 slokken aan de persoon die het minst gedronken heeft.
+,Neem een slok voor elke keer dat je een bepaalde letter in het spel hoort.
+,Kies iemand die een verhaal moet vertellen over een verzonnen onderwerp.
+,Neem een slok voor elk spel dat je ooit hebt gespeeld.
+,Neem 2 slokken voor elke keer dat je [naam van een liedje] hebt gehoord.
+,Kies iemand die een liedje moet zingen.
+,Neem een slok voor elke persoon die je in de kamer kent.
+,Neem een slok voor elk jaar dat je leeft.
+,Neem een slok voor elke keer dat je lacht.
+,Deel 3 slokken uit aan de persoon die de meeste slokken heeft genomen.
+,Doe een handstand en als je dat lukt, mag iedereen behalve jij een slok nemen.
+,Neem een slok voor elke keer dat je de naam van het spel hoort.
+,Neem een slok voor elke keer dat je een bepaalde kleur ziet.
+,Kies iemand die een vraag moet beantwoorden die je bedenkt.
+,Neem een slok voor elke keer dat je een bepaald woord hoort.
+,Neem een slok voor elk item dat je in je zak hebt.
+,Geef 1 slok aan iedereen die een specifiek lichaamsdeel aanraakt.
+,Neem een slok voor elke keer dat je een bepaald geluid hoort.
+,Neem een slok voor elke keer dat je een bepaalde letter in de kamer ziet.
+,Neem een slok voor elke keer dat iemand anders een slok neemt.
+,Neem een slok voor elke keer dat iemand anders lacht.
+,Deel 2 slokken uit aan de persoon die het minst heeft gelachen.
+,Neem een slok voor elke keer dat je een bepaald dier ziet op een foto.
+,Neem een slok voor elke keer dat je een bepaald fruit hoort.
+,Neem een slok voor elke keer dat je een bepaald land hoort.
+,Neem een slok voor elke keer dat je een bepaald vak hoort.
+,Neem een slok voor elke keer dat je een bepaalde hobby hoort.
+,Neem een slok voor elke keer dat je een bepaalde sport hoort.

@@ -13,3 +13,127 @@
 , spel de achternaam van iedere speler juist.
 , stel een vraag. De rader mag de slokken uitdelen.
 , twee leugens één waarheid.
+
+
+
+
+, Categorie: Zoogdieren
+, Categorie: Vogels
+, Categorie: Reptielen
+, Categorie: Amfibieën
+, Categorie: Vissen
+, Categorie: Insecten
+, Categorie: Spinnen
+, Categorie: Weekdieren
+, Categorie: Kreeftachtigen
+, Categorie: Egeldieren
+, Categorie: Groenten
+, Categorie: Fruit
+, Categorie: Granen
+, Categorie: Noten
+, Categorie: Zaden
+, Categorie: Vlees
+, Categorie: Vis
+, Categorie: Zuivelproducten
+, Categorie: Zoetwaren
+, Categorie: Dranken
+, Categorie: Pop
+, Categorie: Rock
+, Categorie: Jazz
+, Categorie: Klassiek
+, Categorie: Hiphop
+, Categorie: Country
+, Categorie: Blues
+, Categorie: Elektronische muziek
+, Categorie: Folk
+, Categorie: Metal
+, Categorie: Schilderkunst
+, Categorie: Beeldhouwkunst
+, Categorie: Fotografie
+, Categorie: Grafiek
+, Categorie: Architectuur
+, Categorie: Mode
+, Categorie: Film
+, Categorie: Theater
+, Categorie: Dans
+, Categorie: Literatuur
+, Categorie: Voetbal
+, Categorie: Basketbal
+, Categorie: Tennis
+, Categorie: Zwemmen
+, Categorie: Atletiek
+, Categorie: Rugby
+, Categorie: Hockey
+, Categorie: Golf
+, Categorie: Paardensport
+, Categorie: Motorcross
+, Categorie: Bomen
+, Categorie: Bloemen
+, Categorie: Stenen
+, Categorie: Bergen
+, Categorie: Rivieren
+, Categorie: Oceanen
+, Categorie: Wouden
+, Categorie: Woestijnen
+, Categorie: Savannes
+, Categorie: Moerassen
+, Categorie: Computers
+, Categorie: Smartphones
+, Categorie: Auto's
+, Categorie: Vliegtuigen
+, Categorie: Robots
+, Categorie: Drones
+, Categorie: 3D-printers
+, Categorie: Kunstmatige intelligentie
+, Categorie: Virtual reality
+, Categorie: Augmented reality
+, Categorie: Oude beschavingen
+, Categorie: Middeleeuwen
+, Categorie: Renaissance
+, Categorie: Verlichting
+, Categorie: Industriële revolutie
+, Categorie: Wereldoorlogen
+, Categorie: Koude oorlog
+, Categorie: Ruimtevaart
+, Categorie: Politieke revoluties
+, Categorie: Sociaal-culturele veranderingen
+, Categorie: Biologie
+, Categorie: Chemie
+, Categorie: Fysica
+, Categorie: Astronomie
+, Categorie: Psychologie
+, Categorie: Geneeskunde
+, Categorie: Wiskunde
+, Categorie: Informatica
+, Categorie: Geografie
+, Categorie: Meteorologie
+, Categorie: Artsen
+, Categorie: Advocaten
+, Categorie: Leraren
+, Categorie: Ingenieurs
+, Categorie: Accountants
+, Categorie: Programmeurs
+, Categorie: Politieagenten
+, Categorie: Brandweermannen
+, Categorie: Kunstenaars
+, Categorie: Schrijvers
+, Categorie: Muziek maken
+, Categorie: Schilderen
+, Categorie: Fotografie
+, Categorie: Tuinieren
+, Categorie: Koken
+, Categorie: Reizen
+, Categorie: Videogames spelen
+, Categorie: Boeken lezen
+, Categorie: Sporten
+, Categorie: Collecties verzamelen
+, Categorie: Kleuren
+, Categorie: Emoties
+, Categorie: Muziekinstrumenten
+, Categorie: Gereedschap
+, Categorie: Vervoermiddelen
+, Categorie: Huishoudelijke artikelen
+, Categorie: Kleding
+, Categorie: Speelgoed
+, Categorie: Kerstversiering
+, Categorie: Vakantie bestemmingen
