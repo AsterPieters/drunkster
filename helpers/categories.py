@@ -1,7 +1,6 @@
 import random
 
-
-##### Imports Lines and puts them in a list #####
+# Import the task per categorie
 def import_categories(categorie):
 
     with open(f"./categories/{categorie}.txt") as quest:
