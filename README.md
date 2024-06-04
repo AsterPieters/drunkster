@@ -1,6 +1,7 @@
 # drunkster
-DRUNKSTER, get drunk or DIE
-A drinking game made by Aster Pieters.
+A drinking game where you choose to play or to drink.
+
+DRUNKSTER, get drunk or DIE.
 
 To use drunkster:
 
