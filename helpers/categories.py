@@ -1,13 +1,13 @@
 import random
+from random import shuffle
 
 # Import the task per categorie
 def import_categories(categorie):
 
     with open(f"./categories/{categorie}.txt") as task:
         task_list = task.read().splitlines()
+        shuffle(task_list)
         return task_list
-
-
 
 class Luck:
     def __init__(self, screen):
@@ -28,8 +28,6 @@ class Luck:
         self.tasks.pop()
         return selected_task
 
-
-
 class Punishment:
     def __init__(self, screen):
 
@@ -49,8 +47,6 @@ class Punishment:
         self.tasks.pop()
         return selected_task
     
-
-
 class Quiz:
     def __init__(self, screen):
 
@@ -70,8 +66,6 @@ class Quiz:
         self.tasks.pop()
         return selected_task
     
-
-
 class Quest:
     def __init__(self, screen):
 
@@ -91,8 +85,6 @@ class Quest:
         self.tasks.pop()
         return selected_task
     
-
-
 class Virus:
     def __init__(self, screen):
 
@@ -111,3 +103,4 @@ class Virus:
         selected_task = self.tasks[0]
         self.tasks.pop()
         return selected_task
+
