@@ -1,5 +1,7 @@
 # drunkster
-Drunkster, get drunk or DIE
+A drinking game where you choose to play or to drink.
+
+DRUNKSTER, get drunk or DIE.
 
 To use drunkster:
 
@@ -13,3 +15,16 @@ To use drunkster:
         pip install pygame
         python drunkster.py
 
+    Macos:
+        Buy a pc
+
+Roadmap:
+
+    UI:
+        put bottles on shelf
+
+    Backend:
+        high & low punish tasks
+
+    Goofs:
+        Working tap, with burp sound after
