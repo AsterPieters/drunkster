@@ -1,20 +1,34 @@
 import pygame
 
 class Button:
-    def __init__(self, x, y, width, height, text, event, screen, click_callback=None):
-        self.rect = pygame.Rect(x, y, width, height)
+    def __init__(self, x, y, width, height, text, screen, event):
+
+        # Text
         self.text = text
         self.text_color = (255, 255, 255)
-        self.color = (50, 50, 50)
-        self.color_hover = (133, 217, 37)
-        self.is_hovered = False
-        self.click_callback = click_callback
+
+        # Color
+        self.color = (0, 0, 0)
+        self.color_hover = (100, 100, 100)
+
+        # Form
+        self.hovered = False
+        self.rect = pygame.Rect(x, y, width, height)
+
+
+        self.check_event(event)
+
+        # Function
         self.draw(screen)
-        self.handle_event(event)
 
     def draw(self, screen):
 
-        button_color = self.color_hover if self.is_hovered else self.color
+        # Change color when hovering over the object
+        if self.hovered:
+            button_color = self.color_hover
+        else:
+            button_color = self.color
+
         # Draw the button rectangle
         pygame.draw.rect(screen, button_color, self.rect)
         
@@ -30,13 +44,10 @@ class Button:
         
         # Blit the text onto the button
         screen.blit(text_surface, text_rect)
-
-    def handle_event(self, event):
-            
+    
+    def check_event(self, event):
         if event.type == pygame.MOUSEMOTION:
-            self.is_hovered = self.rect.collidepoint(event.pos)
-
-        ##### Check if button is clicked #####
-        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                if self.rect.collidepoint(event.pos) and self.click_callback:
-                    self.click_callback()
+            self.hovered = self.rect.collidepoint(event.pos)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if self.hovered:
+                return True
