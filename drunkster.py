@@ -4,7 +4,6 @@
 import pygame
 import random
 
-from helpers.task import *
 from helpers.players import *
 from helpers.button import Button
 from helpers.textbox import Textbox
@@ -15,14 +14,17 @@ from settings import *
 # Initializing pygame
 pygame.init()
 
-# Define resolution
-screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h
-
-# Add player to list function
+# Initialize variables
 players = []
-task_index = 0
 user_input = ''
 message = ''
+task_count = 0
+previous_player = None
+
+# Inializing loops
+start_screen_running = True
+game_screen_running = False
+game_running = True
 
 # Define start game button
 start_game_text = FONT_2.render('Start Drunkster' , True , BLACK)
@@ -33,53 +35,32 @@ enter_player_text = FONT_1.render('Enter a player:', True, BLACK)
 # Define and center the title 
 title_top_text = FONT_4.render('Drunkster', True, BLACK)
 title_top_rect = title_top_text.get_rect()
-title_top_rect.center = (screen_width // 2, 75)
+title_top_rect.center = (SCREEN_WIDTH // 2, 75)
 
 # Define and center the text
 title_bottom_text = FONT_3.render('Get drunk or DIE', True, BLACK)
 title_bottom_rect = title_bottom_text.get_rect()
-title_bottom_rect.center = (screen_width // 2, 200)
+title_bottom_rect.center = (SCREEN_WIDTH // 2, 200)
 
 # Define added players text
 added_players_text = FONT_0.render('Players: ', True, BLACK)
 
-# Stores the width & height into variables
-width = SCREEN.get_width()
-height = SCREEN.get_height()
-
-# # Puts default background
-# start_screen_background = SCREEN.fill(TURQOISE)
-
-# Define options bar
-options_bar_rect = pygame.Rect(365, 516, 200, 60)
-
-# Initiate the variables
-selected_task = 'Press enter to start the first round.'
-selected_player = ''
-previous_player = ''
-task_count = 0
-punishment = ''
-click = 0
-
-# Inializing loops
-start_screen_running = True
-game_screen_running = False
-game_running = True
-
-# Add player textbox
+# Create textbox
 new_player = None
 left_plank = pygame.image.load('ui/images/left_plank.png')
-SCREEN.blit(left_plank, (5, screen_height - 465))
-enter_player_textbox = Textbox(50, screen_height - 400, 300, 75, user_input, BROWN, WHITE)
+SCREEN.blit(left_plank, (5, SCREEN_HEIGHT - 465))
+enter_player_textbox = Textbox(50, SCREEN_HEIGHT - 400, 300, 75, user_input, BROWN, WHITE)
 
 # Create buttons
-start_game_button = Button(50, screen_height - 100, 300, 75, "Start Drunkster", BLACK, GREEN, WHITE)
-next_task_button = Button(50, screen_height - 300, 300, 75, "Next task", BLACK, GRAY, WHITE)
-go_home_button = Button(50, screen_height - 200, 300, 75, "Back", BLACK, GRAY, WHITE)
-quit_game_button = Button(50, screen_height - 100, 300, 75, "Quit game", BLACK, RED, WHITE)
+start_game_button = Button(50, SCREEN_HEIGHT - 100, 300, 75, "Start Drunkster", BLACK, GREEN, WHITE)
+next_task_button = Button(50, SCREEN_HEIGHT - 300, 300, 75, "Next task", BLACK, GRAY, WHITE)
+go_home_button = Button(50, SCREEN_HEIGHT - 200, 300, 75, "Back", BLACK, GRAY, WHITE)
+quit_game_button = Button(50, SCREEN_HEIGHT - 100, 300, 75, "Quit game", BLACK, RED, WHITE)
 
+# Create the tasker
 tasker = Tasker()
 
+# Main loop
 while game_running:
 
     # Ends loop when quit window button is pressed
@@ -106,7 +87,7 @@ while game_running:
             if start_game_button.check_event(event):
 
                 # Check if players were entered.
-                if players:
+                if len(players) >= 2:
                     start_screen_running = False
                     game_screen_running = True
                     game_running = True
@@ -127,13 +108,13 @@ while game_running:
 
         # Display right plank
         right_plank = pygame.image.load('ui/images/right_plank.png')
-        SCREEN.blit(right_plank, (screen_width // 2, screen_height - 460 ))
+        SCREEN.blit(right_plank, (SCREEN_WIDTH // 2, SCREEN_HEIGHT - 460 ))
 
         # Set the pygame window name
         pygame.display.set_caption('Drunkster')
 
         # Displays text
-        SCREEN.blit(enter_player_text, (50, screen_height - 450))
+        SCREEN.blit(enter_player_text, (50, SCREEN_HEIGHT - 450))
         SCREEN.blit(title_top_text, title_top_rect)
         SCREEN.blit(title_bottom_text, title_bottom_rect)
 
