@@ -29,20 +29,20 @@ class Categorie():
         self.tasks.pop(0)
         return selected_task
 
-    def display_task(self, screen, selected_player):
+    def display_task(self, selected_player):
 
         # Get task
         selected_task = self.get_task()
 
         # Fill the screen
-        self.theme = screen.fill(self.colour)
+        self.theme = SCREEN.fill(self.colour)
 
         ##### Display quest icon #####
         icon = pygame.image.load(f'ui/icons/{self.type}.png')
         icon_width, icon_height = icon.get_size()
         x = (SCREEN_WIDTH - icon_width) // 2
         y = (SCREEN_HEIGHT - icon_height) // 8
-        screen.blit(icon, (x, y))
+        SCREEN.blit(icon, (x, y))
 
         # Define task and lower fond if string is too long
         if len(selected_task) > 55:
@@ -54,7 +54,7 @@ class Categorie():
         quest_width, quest_height = task_text.get_size()
         x = (SCREEN_WIDTH - quest_width) // 2
         y = (SCREEN_HEIGHT - quest_height) // 2
-        screen.blit(task_text, (x, y))
+        SCREEN.blit(task_text, (x, y))
 
         # Display punishment if needed
         if self.punish == True:
@@ -64,14 +64,14 @@ class Categorie():
             or_width, or_height = or_text.get_size()
             x = (SCREEN_WIDTH - or_width) // 2
             y = (SCREEN_HEIGHT - or_height) // 2
-            screen.blit(or_text, (x, y+75))
+            SCREEN.blit(or_text, (x, y+75))
 
             # Define and display punishment
             punishment_text = FONT_2.render('Take ' + str(self.punishment) + ' shot(s)', True, BLACK)
             punishment_width, punishment_height = punishment_text.get_size()
             x = (SCREEN_WIDTH - punishment_width) // 2
             y = (SCREEN_HEIGHT - punishment_height) // 2 
-            screen.blit(punishment_text, (x, y+150))
+            SCREEN.blit(punishment_text, (x, y+150))
 
 class Tasker():
     def __init__(self):
@@ -83,20 +83,20 @@ class Tasker():
         self.quest = Categorie((0, 255, 255), 'quest', True, 8)
         self.virus = Categorie((0, 255, 0), 'virus', True, 8)
     
-    def next_task(self, screen, select_player, task_count):
+    def next_task(self, select_player, task_count):
         # Randomly get category
         random_number = random.randint(1, 10)
         if task_count % 5 == 0:
-            category = self.virus.display_task(screen, select_player)
+            category = self.virus.display_task(select_player)
 
         elif random_number == 2:
-            category = self.luck.display_task(screen, select_player)
+            category = self.luck.display_task(select_player)
 
         elif random_number == 3:
-            category = self.punishment.display_task(screen, select_player)
+            category = self.punishment.display_task(select_player)
         
         elif random_number == 4:
-            category = self.quiz.display_task(screen, select_player)
+            category = self.quiz.display_task(select_player)
 
         else: 
-            category = self.quest.display_task(screen, select_player)
+            category = self.quest.display_task(select_player)

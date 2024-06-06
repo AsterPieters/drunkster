@@ -169,8 +169,8 @@ while game_running:
                 selected_player = select_player(players, previous_player)
 
                 # Show the new task
-                next_task(selected_player, task_count)
-                tasker.next_task(screen, selected_player, task_count)
+                #next_task(selected_player, task_count)
+                tasker.next_task(selected_player, task_count)
                 task_count = task_count + 1
 
                 # Set player to previous player
