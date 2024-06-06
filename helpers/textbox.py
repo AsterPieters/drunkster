@@ -4,14 +4,15 @@ import time
 from settings import *
 
 class Textbox:
-    def __init__(self,x ,y , width, height, input, colour, text_colour):
+    def __init__(self,x ,y , width, height, input):
 
         # Input
         self.input = input
-        self.text_colour = text_colour
+        self.text_color = (255, 255, 255)
         
         # Color
-        self.colour = colour
+        self.color = (50, 50, 50)
+        self.color_hover = (133, 217, 37)
         
         # Form
         self.error_code = ''
@@ -20,14 +21,20 @@ class Textbox:
         self.rect = pygame.Rect(x, y, width, height)
 
     def draw(self):
+        # Change color when hovering over the object
+        if self.hovered:
+            textbox_color = self.color_hover
+        else:
+            textbox_color = self.color
+
         # Draw the rectangle
-        pygame.draw.rect(SCREEN, self.colour, self.rect)
+        pygame.draw.rect(SCREEN, textbox_color, self.rect)
 
         # Create a font
         font = pygame.font.Font(None, 36)
 
         # Create the surface
-        textbox_surface = font.render(self.input, True, self.text_colour)
+        textbox_surface = font.render(self.input, True, self.text_color)
 
         # Center the text on the button
         textbox_rect = textbox_surface.get_rect()

@@ -2,15 +2,15 @@ import pygame
 from settings import *
 
 class Button:
-    def __init__(self, x, y, width, height, text, colour, hover_colour, text_colour):
+    def __init__(self, x, y, width, height, text):
 
         # Text
         self.text = text
-        self.text_colour = text_colour
-        
+        self.text_color = (255, 255, 255)
+
         # Color
-        self.colour = colour
-        self.colour_hover = hover_colour
+        self.color = (0, 0, 0)
+        self.color_hover = (100, 100, 100)
 
         # Form
         self.hovered = False
@@ -19,18 +19,18 @@ class Button:
     def draw(self):
         # Change color when hovering over the object
         if self.hovered:
-            button_colour = self.colour_hover
+            button_color = self.color_hover
         else:
-            button_colour = self.colour
+            button_color = self.color
 
         # Draw the button rectangle
-        pygame.draw.rect(SCREEN, button_colour, self.rect)
+        pygame.draw.rect(SCREEN, button_color, self.rect)
         
         # Assign a font
         font = FONT_1
         
         # Create text surface
-        text_surface = font.render(self.text, True, self.text_colour)
+        text_surface = font.render(self.text, True, self.text_color)
         
         # Center the text on the button
         text_rect = text_surface.get_rect()

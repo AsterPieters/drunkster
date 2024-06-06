@@ -16,7 +16,7 @@ def import_categories(categorie):
 class Luck:
     def __init__(self):
 
-        self.colour = YELLOW
+        self.colour = (255, 255, 0)
         self.type = 'luck'
         self.shots = random.randint(1, 3)
         self.theme = SCREEN.fill(self.colour) # Yellow
@@ -35,7 +35,7 @@ class Luck:
 class Punishment:
     def __init__(self):
 
-        self.colour = RED
+        self.colour = (255, 0, 0)
         self.type = 'punishment'
         self.shots = random.randint(1, 3)
         self.theme = SCREEN.fill(self.colour) #Red
@@ -54,7 +54,7 @@ class Punishment:
 class Quiz:
     def __init__(self):
 
-        self.colour = BLUE
+        self.colour = (0, 0, 255)
         self.type = 'quiz'
         self.shots = random.randint(1, 3)
         self.theme = SCREEN.fill(self.colour) #Blue
@@ -82,7 +82,7 @@ class Categorie():
 class Quest:
     def __init__(self):
 
-        self.colour = ORANGE
+        self.colour = (0, 255, 255)
         self.type = 'task'
         self.shots = random.randint(1, 8)
         self.theme = SCREEN.fill(self.colour) #Turqoise
@@ -151,7 +151,7 @@ class Tasker():
 class Virus:
     def __init__(self):
 
-        self.colour = GREEN
+        self.colour = (0, 255, 0)
         self.type = 'virus'
         self.shots = random.randint(1, 8)
         self.theme = SCREEN.fill(self.colour) #Green

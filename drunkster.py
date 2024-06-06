@@ -18,6 +18,26 @@ pygame.init()
 # Define resolution
 screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h
 
+# Define colors
+white = (255, 255, 255)
+light_gray = (205, 205, 205)
+gray = (50, 50, 50)
+black = (0, 0, 0)
+red = (255, 0, 0)
+blue = (143, 189, 255)
+green = (133, 217, 37)
+dark_green = (205, 255, 157)
+turqoise = (37, 183, 217)
+
+# Define fonts
+font = pygame.font.Font(None, 36)
+font_1 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
+font_2 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 80)
+font_3 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 150)
+font_4 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 25)
+font_5 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
+font_6 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 35)
+
 # Add player to list function
 players = []
 task_index = 0
@@ -25,30 +45,30 @@ user_input = ''
 message = ''
 
 # Define start game button
-start_game_text = FONT_2.render('Start Drunkster' , True , BLACK)
+start_game_text = font_1.render('Start Drunkster' , True , black)
 
 # Define "enter a player" text
-enter_player_text = FONT_1.render('Enter a player:', True, BLACK)
+enter_player_text = font_6.render('Enter a player:', True, black)
 
 # Define and center the title 
-title_top_text = FONT_4.render('Drunkster', True, BLACK)
+title_top_text = font_3.render('Drunkster', True, black)
 title_top_rect = title_top_text.get_rect()
 title_top_rect.center = (screen_width // 2, 75)
 
 # Define and center the text
-title_bottom_text = FONT_3.render('Get drunk or DIE', True, BLACK)
+title_bottom_text = font_2.render('Get drunk or DIE', True, black)
 title_bottom_rect = title_bottom_text.get_rect()
 title_bottom_rect.center = (screen_width // 2, 200)
 
 # Define added players text
-added_players_text = FONT_0.render('Players: ', True, BLACK)
+added_players_text = font_4.render('Players: ', True, black)
 
 # Stores the width & height into variables
 width = SCREEN.get_width()
 height = SCREEN.get_height()
 
-# # Puts default background
-# start_screen_background = SCREEN.fill(TURQOISE)
+# Puts default background
+start_screen_background = SCREEN.fill(turqoise)
 
 # Define options bar
 options_bar_rect = pygame.Rect(365, 516, 200, 60)
@@ -66,17 +86,18 @@ start_screen_running = True
 game_screen_running = False
 game_running = True
 
+
 # Add player textbox
 new_player = None
 left_plank = pygame.image.load('ui/images/left_plank.png')
 SCREEN.blit(left_plank, (5, screen_height - 465))
-enter_player_textbox = Textbox(50, screen_height - 400, 300, 75, user_input, BROWN, WHITE)
+enter_player_textbox = Textbox(50, screen_height - 400, 300, 75, user_input)
 
 # Create buttons
-start_game_button = Button(50, screen_height - 100, 300, 75, "Start Drunkster", BLACK, GREEN, WHITE)
-next_task_button = Button(50, screen_height - 300, 300, 75, "Next task", BLACK, GRAY, WHITE)
-go_home_button = Button(50, screen_height - 200, 300, 75, "Back", BLACK, GRAY, WHITE)
-quit_game_button = Button(50, screen_height - 100, 300, 75, "Quit game", BLACK, RED, WHITE)
+start_game_button = Button(50, screen_height - 100, 300, 75, "Start Drunkster")
+next_task_button = Button(50, screen_height - 300, 300, 75, "Next task")
+go_home_button = Button(50, screen_height - 200, 300, 75, "Back")
+quit_game_button = Button(50, screen_height - 100, 300, 75, "Quit game")
 
 tasker = Tasker()
 
@@ -122,7 +143,7 @@ while game_running:
         
         # Display messages
         if message:
-            message_text = FONT_2.render(message, True, RED)
+            message_text = font_1.render(message, True, red)
             SCREEN.blit(message_text, (400, 640))
 
         # Display right plank
@@ -139,14 +160,14 @@ while game_running:
 
         # Displays the players
         for player in players:
-            players_text = FONT_2.render(player, True, BLACK)
-            SCREEN.blit(FONT_0.render(player, True, BLACK), (1300 , 400 + (25 * players.index(player))))
+            players_text = font_1.render(player, True, black)
+            SCREEN.blit(font_4.render(player, True, black), (1300 , 400 + (25 * players.index(player))))
 
         # Update the display
         pygame.display.update()
 
     # Inializing game screen
-    start_screen_background = SCREEN.fill(BLUE)
+    start_screen_background = SCREEN.fill(blue)
     while game_screen_running:
 
         # Draw the buttons
@@ -177,7 +198,7 @@ while game_running:
                 previous_player = selected_player
 
                 # Define task count
-                task_count_text = FONT_0.render(('Task count: ' + str(task_count) ), True, BLACK)
+                task_count_text = font_4.render(('Task count: ' + str(task_count) ), True, black)
                 SCREEN.blit(task_count_text, (1300, 20))
 
             # Go back to the start screen
