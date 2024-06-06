@@ -3,29 +3,29 @@ import pygame
 from settings import *
 from .categories import *
 
-def task_(screen, task_count):
+def task_(task_count):
 
     random_number = random.randint(1, 10)
     if task_count % 5 == 0:
-        category = Virus(screen)
+        category = Virus()
 
     elif random_number == 2:
-        category = Luck(screen)
+        category = Luck()
 
     elif random_number == 3:
-        category = Punishment(screen)
+        category = Punishment()
     
     elif random_number == 4:
-        category = Quiz(screen)
+        category = Quiz()
 
     else: 
-        category = Quest(screen)
+        category = Quest()
     
     return category
 
-def next_task(selected_player, screen, task_count):
+def next_task(selected_player, task_count):
     # Select the category
-    category = task_(screen, task_count)
+    category = task_(task_count)
 
 
     start_screen_background = category.theme
@@ -39,7 +39,7 @@ def next_task(selected_player, screen, task_count):
     icon_width, icon_height = icon.get_size()
     x = (SCREEN_WIDTH - icon_width) // 2
     y = (SCREEN_HEIGHT - icon_height) // 8
-    screen.blit(icon, (x, y))
+    SCREEN.blit(icon, (x, y))
 
     # Define task and lower fond if string is too long
     if len(selected_task) > 55:
@@ -51,7 +51,7 @@ def next_task(selected_player, screen, task_count):
     quest_width, quest_height = task_text.get_size()
     x = (SCREEN_WIDTH - quest_width) // 2
     y = (SCREEN_HEIGHT - quest_height) // 2
-    screen.blit(task_text, (x, y))
+    SCREEN.blit(task_text, (x, y))
 
     # Display punishment if needed
     if punishment_display == True:
@@ -61,11 +61,11 @@ def next_task(selected_player, screen, task_count):
         or_width, or_height = or_text.get_size()
         x = (SCREEN_WIDTH - or_width) // 2
         y = (SCREEN_HEIGHT - or_height) // 2
-        screen.blit(or_text, (x, y+75))
+        SCREEN.blit(or_text, (x, y+75))
 
         # Define and display punishment
         punishment_text = FONT_2.render('Take ' + str(punishment) + ' shot(s)', True, BLACK)
         punishment_width, punishment_height = punishment_text.get_size()
         x = (SCREEN_WIDTH - punishment_width) // 2
         y = (SCREEN_HEIGHT - punishment_height) // 2 
-        screen.blit(punishment_text, (x, y+150))
+        SCREEN.blit(punishment_text, (x, y+150))

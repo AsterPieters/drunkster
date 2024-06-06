@@ -1,5 +1,8 @@
 import random
+
 from random import shuffle
+
+from settings import *
 
 # Import the task per categorie
 def import_categories(categorie):
@@ -10,12 +13,12 @@ def import_categories(categorie):
         return task_list
 
 class Luck:
-    def __init__(self, screen):
+    def __init__(self):
 
         self.colour = (255, 255, 0)
         self.type = 'luck'
         self.shots = random.randint(1, 3)
-        self.theme = screen.fill(self.colour) # Yellow
+        self.theme = SCREEN.fill(self.colour) # Yellow
         self.punish = False
         self.tasks = []
 
@@ -29,12 +32,12 @@ class Luck:
         return selected_task
 
 class Punishment:
-    def __init__(self, screen):
+    def __init__(self):
 
         self.colour = (255, 0, 0)
         self.type = 'punishment'
         self.shots = random.randint(1, 3)
-        self.theme = screen.fill(self.colour) #Red
+        self.theme = SCREEN.fill(self.colour) #Red
         self.punish = True
         self.tasks = []
 
@@ -48,12 +51,12 @@ class Punishment:
         return selected_task
     
 class Quiz:
-    def __init__(self, screen):
+    def __init__(self):
 
         self.colour = (0, 0, 255)
         self.type = 'quiz'
         self.shots = random.randint(1, 3)
-        self.theme = screen.fill(self.colour) #Blue
+        self.theme = SCREEN.fill(self.colour) #Blue
         self.punish = True
         self.tasks = []
 
@@ -67,12 +70,12 @@ class Quiz:
         return selected_task
     
 class Quest:
-    def __init__(self, screen):
+    def __init__(self):
 
         self.colour = (0, 255, 255)
         self.type = 'task'
         self.shots = random.randint(1, 8)
-        self.theme = screen.fill(self.colour) #Turqoise
+        self.theme = SCREEN.fill(self.colour) #Turqoise
         self.punish = True
         self.tasks = []
 
@@ -86,12 +89,12 @@ class Quest:
         return selected_task
     
 class Virus:
-    def __init__(self, screen):
+    def __init__(self):
 
         self.colour = (0, 255, 0)
         self.type = 'virus'
         self.shots = random.randint(1, 8)
-        self.theme = screen.fill(self.colour) #Green
+        self.theme = SCREEN.fill(self.colour) #Green
         self.punish = True
         self.tasks = []
 

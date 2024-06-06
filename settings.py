@@ -10,7 +10,7 @@ FONT_1 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 35)
 FONT_2 = pygame.font.Font('ui/fonts/Ubuntu-Regular.ttf', 50)
 
 # Screen
-SCREEN = 0
+SCREEN = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.Info().current_w, pygame.display.Info().current_h
 
 # Colors

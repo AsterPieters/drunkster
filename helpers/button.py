@@ -2,7 +2,7 @@ import pygame
 from settings import *
 
 class Button:
-    def __init__(self, x, y, width, height, text, screen):
+    def __init__(self, x, y, width, height, text):
 
         # Text
         self.text = text
@@ -14,7 +14,6 @@ class Button:
 
         # Form
         self.hovered = False
-        self.screen = screen
         self.rect = pygame.Rect(x, y, width, height)
 
     def draw(self):
@@ -25,7 +24,7 @@ class Button:
             button_color = self.color
 
         # Draw the button rectangle
-        pygame.draw.rect(self.screen, button_color, self.rect)
+        pygame.draw.rect(SCREEN, button_color, self.rect)
         
         # Assign a font
         font = FONT_1
@@ -38,7 +37,7 @@ class Button:
         text_rect.center = self.rect.center
         
         # Blit the text onto the button
-        self.screen.blit(text_surface, text_rect)
+        SCREEN.blit(text_surface, text_rect)
     
     def check_event(self, event):
         # Check if user hovering over the button
