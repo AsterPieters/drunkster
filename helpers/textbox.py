@@ -1,45 +1,39 @@
 import pygame
 import time
 
+from settings import *
+
 class Textbox:
-    def __init__(self,x ,y , width, height, screen, input):
+    def __init__(self,x ,y , width, height, input, colour, text_colour):
 
         # Input
         self.input = input
-        self.text_color = (255, 255, 255)
+        self.text_colour = text_colour
         
         # Color
-        self.color = (50, 50, 50)
-        self.color_hover = (133, 217, 37)
+        self.colour = colour
         
         # Form
-        self.screen = screen
         self.error_code = ''
         self.hovered = False
         self.active = False
         self.rect = pygame.Rect(x, y, width, height)
 
     def draw(self):
-        # Change color when hovering over the object
-        if self.hovered:
-            textbox_color = self.color_hover
-        else:
-            textbox_color = self.color
-
         # Draw the rectangle
-        pygame.draw.rect(self.screen, textbox_color, self.rect)
+        pygame.draw.rect(SCREEN, self.colour, self.rect)
 
         # Create a font
         font = pygame.font.Font(None, 36)
 
         # Create the surface
-        textbox_surface = font.render(self.input, True, self.text_color)
+        textbox_surface = font.render(self.input, True, self.text_colour)
 
         # Center the text on the button
         textbox_rect = textbox_surface.get_rect()
         textbox_rect.center = self.rect.center
 
-        self.screen.blit(textbox_surface, textbox_rect)
+        SCREEN.blit(textbox_surface, textbox_rect)
     
     def check_event(self, event):
         if event.type == pygame.KEYDOWN:
