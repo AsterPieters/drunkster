@@ -8,6 +8,7 @@ from helpers.task import *
 from helpers.players import *
 from helpers.button import Button
 from helpers.textbox import Textbox
+from helpers.categories import Tasker
 
 from settings import *
 
@@ -76,6 +77,8 @@ start_game_button = Button(50, screen_height - 100, 300, 75, "Start Drunkster", 
 next_task_button = Button(50, screen_height - 300, 300, 75, "Next task", BLACK, GRAY, WHITE)
 go_home_button = Button(50, screen_height - 200, 300, 75, "Back", BLACK, GRAY, WHITE)
 quit_game_button = Button(50, screen_height - 100, 300, 75, "Quit game", BLACK, RED, WHITE)
+
+tasker = Tasker()
 
 while game_running:
 
@@ -167,6 +170,7 @@ while game_running:
 
                 # Show the new task
                 next_task(selected_player, task_count)
+                tasker.next_task(screen, selected_player, task_count)
                 task_count = task_count + 1
 
                 # Set player to previous player

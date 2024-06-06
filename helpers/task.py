@@ -4,7 +4,6 @@ from settings import *
 from .categories import *
 
 def task_(task_count):
-
     random_number = random.randint(1, 10)
     if task_count % 5 == 0:
         category = Virus()
@@ -22,6 +21,7 @@ def task_(task_count):
         category = Quest()
     
     return category
+
 
 def next_task(selected_player, task_count):
     # Select the category
