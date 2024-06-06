@@ -17,14 +17,3 @@ To use drunkster:
 
     Macos:
         Buy a pc
-
-Roadmap:
-
-    UI:
-        put bottles on shelf
-
-    Backend:
-        high & low punish tasks
-
-    Goofs:
-        Working tap, with burp sound after
