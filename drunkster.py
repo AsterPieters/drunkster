@@ -45,6 +45,16 @@ title_bottom_rect.center = (SCREEN_WIDTH // 2, 200)
 # Define added players text
 added_players_text = FONT_0.render('Players: ', True, BLACK)
 
+# Define fore/back ground
+bg = pygame.image.load('ui/images/bar.png')
+fg = pygame.image.load('ui/images/bar2.png')
+
+# Define plank
+plank = pygame.image.load('ui/images/plank.png')
+plank_width, plank_height = plank.get_size()
+plank_x = (SCREEN_WIDTH - plank_width) // 2
+plank_y = (SCREEN_HEIGHT - plank_height) // 8
+
 # Create textbox
 new_player = None
 left_plank = pygame.image.load('ui/images/left_plank.png')
@@ -53,7 +63,7 @@ enter_player_textbox = Textbox(50, SCREEN_HEIGHT - 400, 300, 75, user_input, BRO
 
 # Create buttons
 start_game_button = Button(50, SCREEN_HEIGHT - 100, 300, 75, "Start Drunkster", BLACK, GREEN, WHITE)
-next_task_button = Button(50, SCREEN_HEIGHT - 300, 300, 75, "Next task", BLACK, GRAY, WHITE)
+next_task_button = Button(50, SCREEN_HEIGHT - 300, 300, 75, "Next task", BLACK, GREEN, WHITE)
 go_home_button = Button(50, SCREEN_HEIGHT - 200, 300, 75, "Back", BLACK, GRAY, WHITE)
 quit_game_button = Button(50, SCREEN_HEIGHT - 100, 300, 75, "Quit game", BLACK, RED, WHITE)
 
@@ -73,7 +83,6 @@ while game_running:
     while start_screen_running:
 
         # Fills the background
-        bg = pygame.image.load('ui/images/bar.png')
         SCREEN.blit(bg, (0,0))
 
         # Add player textbox
@@ -126,8 +135,11 @@ while game_running:
         # Update the display
         pygame.display.update()
 
+    # Fills the foreground
+    SCREEN.blit(fg, (0,0))
+    SCREEN.blit(plank, (plank_x, plank_y))
+
     # Inializing game screen
-    start_screen_background = SCREEN.fill(BLUE)
     while game_screen_running:
 
         # Draw the buttons
@@ -161,12 +173,15 @@ while game_running:
                 task_count_text = FONT_0.render(('Task count: ' + str(task_count) ), True, BLACK)
                 SCREEN.blit(task_count_text, (1300, 20))
 
+                # Display the bar again
+                SCREEN.blit(fg, (0,0))
+                SCREEN.blit(plank, (plank_x, plank_y))
+
             # Go back to the start screen
             if go_home_button.check_event(event):
                 start_screen_running = True
                 game_screen_running = False
                 game_running = True
-
 
         # Set the pygame window name and Update the display
         pygame.display.set_caption('Drunkster')
@@ -174,7 +189,7 @@ while game_running:
 
 # Sets the FPS to 15
 clock = pygame.time.Clock()
-clock.tick(15)
+clock.tick(60)
 
 # Quit screen
 pygame.quit()

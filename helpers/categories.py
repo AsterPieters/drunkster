@@ -53,7 +53,7 @@ class Categorie():
         ##### Display text in the middle of the screen #####
         quest_width, quest_height = task_text.get_size()
         x = (SCREEN_WIDTH - quest_width) // 2
-        y = (SCREEN_HEIGHT - quest_height) // 2
+        y = (SCREEN_HEIGHT - quest_height) // 3
         SCREEN.blit(task_text, (x, y))
 
         # Display punishment if needed
@@ -63,25 +63,25 @@ class Categorie():
             or_text = FONT_2.render('or', True, BLACK)
             or_width, or_height = or_text.get_size()
             x = (SCREEN_WIDTH - or_width) // 2
-            y = (SCREEN_HEIGHT - or_height) // 2
+            y = (SCREEN_HEIGHT - or_height) // 3
             SCREEN.blit(or_text, (x, y+75))
 
             # Define and display punishment
             punishment_text = FONT_2.render('Take ' + str(self.punishment) + ' shot(s)', True, BLACK)
             punishment_width, punishment_height = punishment_text.get_size()
             x = (SCREEN_WIDTH - punishment_width) // 2
-            y = (SCREEN_HEIGHT - punishment_height) // 2 
+            y = (SCREEN_HEIGHT - punishment_height) // 3
             SCREEN.blit(punishment_text, (x, y+150))
 
 class Tasker():
     def __init__(self):
 
         # Create categories
-        self.luck = Categorie((255, 255, 0), 'luck', False, 3)
-        self.punishment = Categorie((255, 0, 0), 'punishment', True, 3)
-        self.quiz = Categorie((0, 0, 255), 'quiz', True, 3)
-        self.quest = Categorie((0, 255, 255), 'quest', True, 8)
-        self.virus = Categorie((0, 255, 0), 'virus', True, 8)
+        self.luck = Categorie(YELLOW, 'luck', False, 3)
+        self.punishment = Categorie(RED, 'punishment', True, 3)
+        self.quiz = Categorie(ORANGE, 'quiz', True, 3)
+        self.quest = Categorie(BLUE, 'quest', True, 8)
+        self.virus = Categorie(GREEN, 'virus', True, 8)
     
     def next_task(self, select_player, task_count):
         # Randomly get category
