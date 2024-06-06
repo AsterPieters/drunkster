@@ -2,12 +2,11 @@
 # A drinking game by Aster Pieters
 
 import pygame
-import random
 from helpers.task import *
 from helpers.players import *
 from helpers.button import Button
 from helpers.textbox import Textbox
-import pdb
+from helpers.categories import Tasker
 
 # Initializing pygame
 pygame.init()
@@ -99,6 +98,8 @@ next_task_button = Button(50, screen_height - 300, 300, 75, "Next task", screen)
 go_home_button = Button(50, screen_height - 200, 300, 75, "Back", screen)
 quit_game_button = Button(50, screen_height - 100, 300, 75, "Quit game", screen)
 
+tasker = Tasker()
+
 while game_running:
 
     # Ends loop when quit window button is pressed
@@ -188,7 +189,7 @@ while game_running:
                 selected_player = select_player(players, previous_player)
 
                 # Show the new task
-                next_task(selected_player, screen, task_count)
+                tasker.next_task(screen, selected_player, task_count)
                 task_count = task_count + 1
 
                 # Set player to previous player
