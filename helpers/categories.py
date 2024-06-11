@@ -37,12 +37,12 @@ class Categorie():
         # Fill the screen
         self.theme = SCREEN.fill(self.colour)
 
-        ##### Display quest icon #####
-        icon = pygame.image.load(f'ui/icons/{self.type}.png')
-        icon_width, icon_height = icon.get_size()
-        x = (SCREEN_WIDTH - icon_width) // 2
-        y = (SCREEN_HEIGHT - icon_height) // 8
-        SCREEN.blit(icon, (x, y))
+        # ##### Display quest icon #####
+        # icon = pygame.image.load(f'ui/icons/{self.type}.png')
+        # icon_width, icon_height = icon.get_size()
+        # x = (SCREEN_WIDTH - icon_width) // 2
+        # y = (SCREEN_HEIGHT - icon_height) // 5
+        # SCREEN.blit(icon, (x, y))
 
         # Define task and lower fond if string is too long
         if len(selected_task) > 55:
@@ -53,7 +53,7 @@ class Categorie():
         ##### Display text in the middle of the screen #####
         quest_width, quest_height = task_text.get_size()
         x = (SCREEN_WIDTH - quest_width) // 2
-        y = (SCREEN_HEIGHT - quest_height) // 3
+        y = (SCREEN_HEIGHT - quest_height) // 2.5
         SCREEN.blit(task_text, (x, y))
 
         # Display punishment if needed
@@ -63,14 +63,14 @@ class Categorie():
             or_text = FONT_2.render('or', True, BLACK)
             or_width, or_height = or_text.get_size()
             x = (SCREEN_WIDTH - or_width) // 2
-            y = (SCREEN_HEIGHT - or_height) // 3
+            y = (SCREEN_HEIGHT - or_height) // 2.5
             SCREEN.blit(or_text, (x, y+75))
 
             # Define and display punishment
             punishment_text = FONT_2.render('Take ' + str(self.punishment) + ' shot(s)', True, BLACK)
             punishment_width, punishment_height = punishment_text.get_size()
             x = (SCREEN_WIDTH - punishment_width) // 2
-            y = (SCREEN_HEIGHT - punishment_height) // 3
+            y = (SCREEN_HEIGHT - punishment_height) // 2.5
             SCREEN.blit(punishment_text, (x, y+150))
 
 class Tasker():

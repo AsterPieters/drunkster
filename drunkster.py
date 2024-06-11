@@ -18,6 +18,7 @@ pygame.init()
 players = []
 user_input = ''
 message = ''
+message_colour = BLACK
 task_count = 0
 previous_player = None
 
@@ -37,16 +38,11 @@ title_top_text = FONT_4.render('Drunkster', True, BLACK)
 title_top_rect = title_top_text.get_rect()
 title_top_rect.center = (SCREEN_WIDTH // 2, 75)
 
-# Define and center the text
-title_bottom_text = FONT_3.render('Get drunk or DIE', True, BLACK)
-title_bottom_rect = title_bottom_text.get_rect()
-title_bottom_rect.center = (SCREEN_WIDTH // 2, 200)
-
 # Define added players text
 added_players_text = FONT_0.render('Players: ', True, BLACK)
 
 # Define fore/back ground
-bg = pygame.image.load('ui/images/bar.png')
+bg = pygame.image.load('ui/images/bar3.png')
 fg = pygame.image.load('ui/images/bar2.png')
 
 # Define plank
@@ -59,10 +55,10 @@ plank_y = (SCREEN_HEIGHT - plank_height) // 8
 new_player = None
 left_plank = pygame.image.load('ui/images/left_plank.png')
 SCREEN.blit(left_plank, (5, SCREEN_HEIGHT - 465))
-enter_player_textbox = Textbox(50, SCREEN_HEIGHT - 400, 300, 75, user_input, BROWN, WHITE)
+enter_player_textbox = Textbox(50, SCREEN_HEIGHT - 300, 300, 75, user_input, BLACK, WHITE)
 
 # Create buttons
-start_game_button = Button(50, SCREEN_HEIGHT - 100, 300, 75, "Start Drunkster", BLACK, GREEN, WHITE)
+start_game_button = Button(50, SCREEN_HEIGHT - 200, 300, 75, "Start Drunkster", BLACK, GREEN, WHITE)
 next_task_button = Button(50, SCREEN_HEIGHT - 300, 300, 75, "Next task", BLACK, GREEN, WHITE)
 go_home_button = Button(50, SCREEN_HEIGHT - 200, 300, 75, "Back", BLACK, GRAY, WHITE)
 quit_game_button = Button(50, SCREEN_HEIGHT - 100, 300, 75, "Quit game", BLACK, RED, WHITE)
@@ -91,10 +87,18 @@ while game_running:
         # Start game button
         start_game_button.draw()
 
+        # Quit game button
+        quit_game_button.draw()
+
         # Go to the game screen
         for event in pygame.event.get():
-            if start_game_button.check_event(event):
+            # Quit the game
+            if quit_game_button.check_event(event):
+                start_screen_running = False
+                game_screen_running = False
+                game_running = False
 
+            if start_game_button.check_event(event):
                 # Check if players were entered.
                 if len(players) >= 2:
                     start_screen_running = False
@@ -102,40 +106,42 @@ while game_running:
                     game_running = True
                 else:
                     message = "Please enter at least 2 players!"
+                    message_colour = RED
 
             # Check if player is added
             new_player = enter_player_textbox.check_event(event)
 
         # Add new players to list
         if new_player:
-            message = add_player(new_player, players)
-        
-        # Display messages
-        if message:
-            message_text = FONT_2.render(message, True, RED)
-            SCREEN.blit(message_text, (400, 640))
+            message, message_colour = add_player(new_player, players)
 
         # Display right plank
         right_plank = pygame.image.load('ui/images/right_plank.png')
-        SCREEN.blit(right_plank, (SCREEN_WIDTH // 2, SCREEN_HEIGHT - 460 ))
+        SCREEN.blit(right_plank, (SCREEN_WIDTH -350, SCREEN_HEIGHT - 350))
 
         # Set the pygame window name
         pygame.display.set_caption('Drunkster')
 
         # Displays text
-        SCREEN.blit(enter_player_text, (50, SCREEN_HEIGHT - 450))
+        SCREEN.blit(enter_player_text, (50, SCREEN_HEIGHT - 350))
         SCREEN.blit(title_top_text, title_top_rect)
-        SCREEN.blit(title_bottom_text, title_bottom_rect)
 
         # Displays the players
         for player in players:
             players_text = FONT_2.render(player, True, BLACK)
-            SCREEN.blit(FONT_0.render(player, True, BLACK), (1300 , 400 + (25 * players.index(player))))
+            SCREEN.blit(FONT_0.render(player, True, BLACK), (SCREEN_WIDTH - 335, SCREEN_HEIGHT - 335 + (25 * players.index(player))))
+
+        # Display messages
+        message_text = FONT_2.render(message, True, message_colour)
+        message_rect = message_text.get_rect()
+        message_rect.center = (SCREEN_WIDTH // 2, 300)
+        SCREEN.blit(message_text, message_rect)
 
         # Update the display
         pygame.display.update()
 
     # Fills the foreground
+    SCREEN.fill(BLACK)
     SCREEN.blit(fg, (0,0))
     SCREEN.blit(plank, (plank_x, plank_y))
 
@@ -184,7 +190,7 @@ while game_running:
                 game_running = True
 
         # Set the pygame window name and Update the display
-        pygame.display.set_caption('Drunkster')
+        pygame.display.set_caption('Drunkster, Get Drunk Or Die')
         pygame.display.update()
 
 # Sets the FPS to 15
