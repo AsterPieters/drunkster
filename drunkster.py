@@ -43,7 +43,7 @@ added_players_text = FONT_0.render('Players: ', True, BLACK)
 
 # Define fore/back ground
 bg = pygame.image.load('ui/images/bar3.png')
-fg = pygame.image.load('ui/images/bar2.png')
+fg = pygame.image.load('ui/images/bar4.png')
 
 # Define plank
 plank = pygame.image.load('ui/images/plank.png')
@@ -129,7 +129,11 @@ while game_running:
         # Displays the players
         for player in players:
             players_text = FONT_2.render(player, True, BLACK)
-            SCREEN.blit(FONT_0.render(player, True, BLACK), (SCREEN_WIDTH - 335, SCREEN_HEIGHT - 335 + (25 * players.index(player))))
+            for i, player in enumerate(players):
+                if i < 13:
+                    SCREEN.blit(FONT_0.render(player, True, BLACK), (SCREEN_WIDTH - 335, SCREEN_HEIGHT - 335 + (25 * players.index(player))))
+                else:
+                    SCREEN.blit(FONT_0.render(player, True, BLACK), (SCREEN_WIDTH - 180, SCREEN_HEIGHT - 335 + (25 * players.index(player) - 325)))
 
         # Display messages
         message_text = FONT_2.render(message, True, message_colour)
