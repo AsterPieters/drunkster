@@ -17,6 +17,7 @@ SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.Info().current_w, pygame.display.In
 
 # Colours
 BLACK = (0, 0, 0)
+TURQUOISE = (28, 66, 59)
 # RED = (204, 0, 0)
 # YELLOW = (204, 204, 0)
 # GREEN = (0, 204, 0)
